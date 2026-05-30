@@ -98,13 +98,121 @@ const etiquette = [
 ] as const;
 
 const timetable = [
-  ["Monday", "07:00", "Rise & Reform", "Elena Vance"],
-  ["Tuesday", "08:00", "Posture Clinic", "Elena Vance"],
-  ["Wednesday", "07:00", "Rise & Reform", "Marcus T."],
-  ["Thursday", "08:30", "Mat Flow", "Sienna B."],
-  ["Friday", "07:00", "Rise & Reform", "Elena Vance"],
-  ["Saturday", "09:00", "Core Sculpt", "Marcus T."],
-  ["Sunday", "10:00", "Posture Clinic", "Elena Vance"],
+  {
+    day: "Monday",
+    sessions: [
+      ["07:00", "Rise & Reform", "Elena Vance"],
+      ["10:30", "Nail Spa Ritual", "Lina A."],
+      ["18:00", "Core Sculpt", "Marcus T."],
+    ],
+  },
+  {
+    day: "Tuesday",
+    sessions: [
+      ["08:00", "Posture Clinic", "Elena Vance"],
+      ["13:00", "Signature Manicure", "Maya R."],
+      ["19:00", "Private Reformer", "Julian Rossi"],
+    ],
+  },
+  {
+    day: "Wednesday",
+    sessions: [
+      ["07:00", "Rise & Reform", "Marcus T."],
+      ["12:30", "Gel Polish Ritual", "Lina A."],
+      ["18:30", "Mat Flow", "Sasha Blanc"],
+    ],
+  },
+  {
+    day: "Thursday",
+    sessions: [
+      ["08:30", "Mat Flow", "Sienna B."],
+      ["15:00", "Spa Pedicure", "Maya R."],
+      ["20:00", "Core Sculpt", "Marcus T."],
+    ],
+  },
+  {
+    day: "Friday",
+    sessions: [
+      ["07:00", "Rise & Reform", "Elena Vance"],
+      ["11:00", "Nail Strengthening", "Lina A."],
+      ["17:30", "Classical Mat", "Sasha Blanc"],
+    ],
+  },
+  {
+    day: "Saturday",
+    sessions: [
+      ["09:00", "Core Sculpt", "Marcus T."],
+      ["13:30", "Minimal Nail Art", "Maya R."],
+      ["18:00", "Private Session", "Elena Vance"],
+    ],
+  },
+  {
+    day: "Sunday",
+    sessions: [
+      ["10:00", "Posture Clinic", "Elena Vance"],
+      ["14:00", "Bridal Atelier Set", "Lina A."],
+      ["19:00", "Restorative Reformer", "Julian Rossi"],
+    ],
+  },
+] as const;
+
+const arabicTimetable = [
+  {
+    day: "الإثنين",
+    sessions: [
+      ["07:00", "رايز آند ري فورم", "إيلينا فانس"],
+      ["10:30", "طقس سبا الأظافر", "لينا أ."],
+      ["18:00", "كور سكلبت", "ماركوس ت."],
+    ],
+  },
+  {
+    day: "الثلاثاء",
+    sessions: [
+      ["08:00", "عيادة القوام", "إيلينا فانس"],
+      ["13:00", "مانيكير سيغنتشر", "مايا ر."],
+      ["19:00", "ري فورمر خاص", "جوليان روسي"],
+    ],
+  },
+  {
+    day: "الأربعاء",
+    sessions: [
+      ["07:00", "رايز آند ري فورم", "ماركوس ت."],
+      ["12:30", "جل بوليش", "لينا أ."],
+      ["18:30", "مات فلو", "ساشا بلانك"],
+    ],
+  },
+  {
+    day: "الخميس",
+    sessions: [
+      ["08:30", "مات فلو", "سيينا ب."],
+      ["15:00", "سبا باديكير", "مايا ر."],
+      ["20:00", "كور سكلبت", "ماركوس ت."],
+    ],
+  },
+  {
+    day: "الجمعة",
+    sessions: [
+      ["07:00", "رايز آند ري فورم", "إيلينا فانس"],
+      ["11:00", "تقوية الأظافر", "لينا أ."],
+      ["17:30", "مات كلاسيك", "ساشا بلانك"],
+    ],
+  },
+  {
+    day: "السبت",
+    sessions: [
+      ["09:00", "كور سكلبت", "ماركوس ت."],
+      ["13:30", "فن أظافر بسيط", "مايا ر."],
+      ["18:00", "جلسة خاصة", "إيلينا فانس"],
+    ],
+  },
+  {
+    day: "الأحد",
+    sessions: [
+      ["10:00", "عيادة القوام", "إيلينا فانس"],
+      ["14:00", "باقة العروس", "لينا أ."],
+      ["19:00", "ري فورمر ترميمي", "جوليان روسي"],
+    ],
+  },
 ] as const;
 
 const coaches = [
@@ -118,7 +226,7 @@ const pricing = [
   {
     name: "Starter",
     badge: "Begin",
-    price: "450",
+    price: "900",
     period: "month",
     body: "A precise entry point for new members building consistency.",
     features: ["4 group sessions", "Equipment induction", "App booking access"],
@@ -127,7 +235,7 @@ const pricing = [
   {
     name: "Pro",
     badge: "Recommended",
-    price: "1,300",
+    price: "3,500",
     period: "month",
     body: "The balanced membership for regular practice and visible progression.",
     features: ["12 group classes", "1 private session", "Priority booking window"],
@@ -136,7 +244,7 @@ const pricing = [
   {
     name: "Unlimited",
     badge: "All Access",
-    price: "2,250",
+    price: "6,000",
     period: "month",
     body: "For members who want complete freedom across the studio schedule.",
     features: ["Unlimited group credits", "15% boutique discount", "Premium support"],
@@ -157,6 +265,346 @@ const faqs = [
   ["How do I use the app?", "Use the app to book classes, manage membership, view the timetable, and purchase studio credits."],
   ["Where do I start?", "Begin with Foundations or a private assessment before moving into stronger reformer classes."],
 ] as const;
+
+const siteCopy = {
+  en: {
+    navItems,
+    philosophyCards,
+    equipment,
+    classes,
+    nailSpaServices,
+    etiquette,
+    timetable,
+    coaches,
+    pricing,
+    corporate,
+    faqs,
+    bookNow: "Download Our App",
+    languageLabel: "العربية",
+    srOnlyTitle: "LYKIA ATELIER Reception Entrance",
+    entrance: {
+      label: "Entrance / Reception",
+      firstEyebrow: "LYKIA ATELIER",
+      firstTitle: "Enter quietly",
+      firstBody: "Scroll forward through the glass doors and into a warm reception.",
+      secondEyebrow: "Arrival",
+      secondTitle: "The doors open to calm",
+      secondBody: "A soft-lit threshold leads from the facade into the reception space.",
+      reception: "Reception",
+      welcome: "Welcome in.",
+      arrived: "You have arrived at the LYKIA ATELIER reception.",
+      scroll: "Scroll for the atelier",
+      startHint: "Scroll to enter",
+    },
+    studio: {
+      eyebrow: "Studio",
+      title: "Organic Luxury Pilates & Nail Spa",
+      body: "Where mindful movement meets refined beauty care. LYKIA is a tactile, sensory escape for precision Pilates, quiet nail rituals, and a slower return to yourself.",
+      pilatesCta: "Pilates",
+      nailCta: "Nail Spa",
+      stat: "05 max class size",
+      statBody: "Infrared warmth, custom aromatherapy, handcrafted changing suites.",
+    },
+    philosophy: {
+      eyebrow: "The LYKIA Philosophy",
+      title: "Architecture before intensity.",
+      body: "Most studios focus on the carve. We focus on the architecture: precise movement, unhurried instruction, and the body-mind harmony that makes strength last.",
+    },
+    luxury: {
+      eyebrow: "Organic Luxury",
+      title: "Calm is the material.",
+      body: "Luxury is not excess here. It is quiet temperature, soft light, warm surfaces, and an environment that makes the transition from outside world to inner focus feel seamless.",
+    },
+    classHeading: {
+      eyebrow: "Classes",
+      title: "The Art of Movement",
+      body: "Every session is curated: classical Pilates principles balanced with contemporary athletic refinement.",
+    },
+    nailHeading: {
+      eyebrow: "Nail Spa",
+      title: "Care rituals with the same precision.",
+      body: "The nail spa follows the Pilates language: quiet timing, detailed technique, warm materials, and a finished result that feels polished without excess.",
+      cardEyebrow: "Atelier Pairing",
+      pairingNotes: [
+        "Book movement and nail care together for a slower, more complete studio visit.",
+        "Start with Reformer strength, then move into a calm manicure or pedicure ritual.",
+        "Reserve a private session and nail spa finish for events, travel days, or a full reset.",
+      ],
+    },
+    timetableHeading: {
+      eyebrow: "Timetable",
+      title: "The Weekly Flow",
+      body: "Booking opens seven days in advance. Choose the rhythm that meets your week.",
+    },
+    coachesHeading: {
+      eyebrow: "Coaches",
+      title: "The Curators",
+      body: "Our instructors are architects of movement, each with a distinct lens on precision, flow, and individual evolution.",
+    },
+    pricingHeading: {
+      eyebrow: "Pricing",
+      title: "Investment in Grace.",
+      body: "Transparent pricing for a bespoke Pilates experience, from introductory journeys to dedicated memberships.",
+      monthly: "Monthly",
+      currency: "SR",
+    },
+    corporateHeading: {
+      eyebrow: "Corporate",
+      title: "Elevate Employee Productivity",
+      body: "Corporate wellness programs engineered to optimize cognitive function, physical longevity, and a culture of high-performance vitality.",
+    },
+    faqHeading: {
+      eyebrow: "Clarity & Movement",
+      title: "Your Path Unfolded.",
+      body: "Find answers to the common questions about your practice at our atelier.",
+    },
+    contact: {
+      eyebrow: "Connect with our atelier",
+      title: "Reach out for your practice.",
+      body: "Book classes, manage memberships, explore services, and keep your LYKIA visits organized from the app.",
+      appEyebrow: "LYKIA Mobile",
+      appTitle: "Your atelier, in your pocket.",
+      appBody: "Download the app to reserve Pilates sessions, schedule nail spa rituals, view membership details, and receive studio updates from Riyadh.",
+      appCta: "Download Our App",
+      locationTitle: "Riyadh Studio",
+      locationBody: "A calm LYKIA atelier in Riyadh for Pilates sessions, nail spa rituals, and private wellness appointments.",
+      quote: "Pilates is the complete coordination of body, mind, and spirit.",
+      quoteBy: "Joseph Pilates",
+    },
+    footer: {
+      tagline: "Precision in motion.",
+      colOne: ["Studio", "Classes", "Nail Spa", "Timetable"],
+      colTwo: ["Pricing", "Corporate", "FAQ"],
+      colThree: ["Contact", "Privacy", "Terms"],
+    },
+  },
+  ar: {
+    navItems: [
+      ["الاستوديو", "studio"],
+      ["الحصص", "classes"],
+      ["سبا الأظافر", "nail-spa"],
+      ["الأسعار", "pricing"],
+      ["الجدول", "timetable"],
+      ["المدربون", "coaches"],
+      ["الشركات", "corporate"],
+      ["الأسئلة", "faq"],
+    ],
+    philosophyCards: [
+      ["تنسيق خاص", "حصص صغيرة مصممة حول القوام، التحكم، التنفس، وقوة هادئة تدوم."],
+      ["ذكاء حركي", "كل تسلسل يدرس بدقة تشريحية وإيقاع واضح وتدرج مدروس."],
+      ["هدوء مقصود", "تجربة خالية من الضجيج، تترك فقط المواد الدافئة، التدريب الخبير، والتركيز."],
+    ],
+    equipment: ["أجهزة ري فورمر Allegro 2", "كراسي وندا", "جدار كاديلاك", "أدوات مخصصة"],
+    classes: [
+      {
+        title: "ري فورمر",
+        meta: "50 دقيقة / متوسط إلى عال",
+        body: "تدريب مقاومة ديناميكي للقوام والقوة والمرونة والتحكم الرياضي الراقي.",
+      },
+      {
+        title: "مات كلاسيك",
+        meta: "45 دقيقة / تأسيسي",
+        body: "تمرين دقيق على الحصيرة مستوحى من منهج جوزيف بيلاتس الأصلي والتنفس والانتقالات النظيفة.",
+      },
+      {
+        title: "جلسات خاصة",
+        meta: "60 أو 90 دقيقة / مخصصة",
+        body: "برنامج فردي باستخدام الري فورمر والكاديلاك والوندا لتحقيق أهدافك الشخصية.",
+      },
+    ],
+    nailSpaServices: [
+      {
+        title: "مانيكير سيغنتشر",
+        meta: "45 دقيقة / عناية",
+        body: "تنظيف الجلد المحيط، تشكيل الأظافر، ترطيب اليدين، ولمسة نهائية أنيقة من لوحة ألوان الأتيليه.",
+      },
+      {
+        title: "جل بوليش",
+        meta: "60 دقيقة / ثبات طويل",
+        body: "تطبيق جل لامع مع تحضير دقيق وبنية متوازنة واختيار ألوان راق.",
+      },
+      {
+        title: "سبا باديكير",
+        meta: "60 دقيقة / استرخاء",
+        body: "نقع للقدمين، تشكيل، تقشير، تدليك، وتلميع يمنحك إعادة ضبط ناعمة بعد الحركة.",
+      },
+      {
+        title: "تقوية الأظافر",
+        meta: "40 دقيقة / ترميم",
+        body: "علاج مركز للأظافر الضعيفة باستخدام تحضير لطيف وطبقات تقوية.",
+      },
+      {
+        title: "فن أظافر بسيط",
+        meta: "إضافة / حسب الطلب",
+        body: "تفاصيل رفيعة ولمسات هادئة وتصاميم أنيقة لا تبدو صاخبة.",
+      },
+      {
+        title: "باقة العروس",
+        meta: "90 دقيقة / مناسبات",
+        body: "مانيكير وباديكير كامل للمناسبات والتصوير ولحظات الزفاف الهادئة.",
+      },
+    ],
+    etiquette: [
+      ["ماذا أرتدي؟", "ملابس رياضية مريحة ومناسبة للجسم وجوارب مانعة للانزلاق لحركة آمنة ونظيفة."],
+      ["الوصول", "احضري مبكرا لتسجيل الدخول والهدوء قبل بداية الحصة."],
+      ["ملاحظات صحية", "شاركي أي إصابة أو حمل أو مرحلة تعاف حتى نعدل الحصة بعناية."],
+    ],
+    timetable: [
+      ["الإثنين", "07:00", "رايز آند ري فورم", "إيلينا فانس"],
+      ["الثلاثاء", "08:00", "عيادة القوام", "إيلينا فانس"],
+      ["الأربعاء", "07:00", "رايز آند ري فورم", "ماركوس ت."],
+      ["الخميس", "08:30", "مات فلو", "سيينا ب."],
+      ["الجمعة", "07:00", "رايز آند ري فورم", "إيلينا فانس"],
+      ["السبت", "09:00", "كور سكلبت", "ماركوس ت."],
+      ["الأحد", "10:00", "عيادة القوام", "إيلينا فانس"],
+    ],
+    coaches: [
+      ["إيلينا فانس", "المؤسسة والمديرة الإبداعية", "هادئة، دقيقة تشريحيا، وترميمية بعمق."],
+      ["ماركوس ثورن", "اختصاصي الأداء الرياضي", "إيقاع قوي وعالي الشدة مع تركيز على القوة."],
+      ["ساشا بلانك", "اختصاصية المنهج الكلاسيكي", "انسيابية، صعبة، وملتزمة بالتقاليد الأصلية."],
+      ["جوليان روسي", "التأهيل وصحة العمود الفقري", "لطيف، تدريجي، ويركز على السلامة."],
+    ],
+    pricing: [
+      {
+        name: "البداية",
+        badge: "ابدأ",
+        price: "900",
+        period: "شهريا",
+        body: "مدخل دقيق للأعضاء الجدد لبناء الالتزام.",
+        features: ["4 حصص جماعية", "تعريف بالأجهزة", "حجز عبر التطبيق"],
+        cta: "ابدأ الرحلة",
+      },
+      {
+        name: "برو",
+        badge: "الأكثر اختيارا",
+        price: "3,500",
+        period: "شهريا",
+        body: "عضوية متوازنة للممارسة المنتظمة والتقدم الواضح.",
+        features: ["12 حصة جماعية", "جلسة خاصة واحدة", "أولوية في الحجز"],
+        cta: "انضم إلى برو",
+      },
+      {
+        name: "غير محدود",
+        badge: "وصول كامل",
+        price: "6,000",
+        period: "شهريا",
+        body: "لمن يريد حرية كاملة في جدول الاستوديو.",
+        features: ["حصص جماعية غير محدودة", "خصم 15% في البوتيك", "دعم مميز"],
+        cta: "اختر غير محدود",
+      },
+    ],
+    corporate: [
+      ["حصص داخل مقر العمل", "جلسات حركة للفرق التي تحتاج تركيزا ودعما للقوام ووضوحا ذهنيا."],
+      ["عقود الشركات", "شراكات طويلة المدى مع حصص متكررة وحجز مدربين مخصص."],
+      ["خصومات الموظفين", "عضويات مدعومة للفرق في مواقع الاستوديو."],
+      ["ريتريت تنفيذي", "تجارب عافية متعددة الأيام تجمع الحركة والتغذية والتخطيط."],
+    ],
+    faqs: [
+      ["ماذا أرتدي؟", "ارتدي ملابس رياضية مناسبة وجوارب مانعة للانزلاق. فريقنا يرشدك إذا كانت هذه زيارتك الأولى."],
+      ["هل يجب أن أكون رياضية؟", "لا. الحصص تبدأ من مستواك وتتدرج مع قوتك ومرونتك وتحكمك."],
+      ["كيف أستخدم التطبيق؟", "استخدمي التطبيق لحجز الحصص وإدارة العضوية والاطلاع على الجدول وشراء الرصيد."],
+      ["من أين أبدأ؟", "ابدئي بحصة تأسيسية أو تقييم خاص قبل الانتقال إلى حصص الري فورمر الأقوى."],
+    ],
+    bookNow: "حملي التطبيق",
+    languageLabel: "English",
+    srOnlyTitle: "مدخل استقبال ليكيا أتيليه",
+    entrance: {
+      label: "المدخل / الاستقبال",
+      firstEyebrow: "ليكيا أتيليه",
+      firstTitle: "ادخلي بهدوء",
+      firstBody: "مرري للأمام عبر الأبواب الزجاجية حتى تصلي إلى استقبال دافئ.",
+      secondEyebrow: "الوصول",
+      secondTitle: "الأبواب تفتح على الهدوء",
+      secondBody: "عتبة مضاءة بنعومة تقودك من الواجهة إلى مساحة الاستقبال.",
+      reception: "الاستقبال",
+      welcome: "أهلا بك.",
+      arrived: "لقد وصلت إلى استقبال ليكيا أتيليه.",
+      scroll: "مرري لاكتشاف الأتيليه",
+      startHint: "مرري للدخول",
+    },
+    studio: {
+      eyebrow: "الاستوديو",
+      title: "بيلاتس وسبا أظافر بفخامة عضوية",
+      body: "حيث تلتقي الحركة الواعية بالعناية الجمالية الراقية. ليكيا مساحة حسية هادئة للبيلاتس الدقيق وطقوس الأظافر الناعمة وعودة أبطأ إلى ذاتك.",
+      pilatesCta: "بيلاتس",
+      nailCta: "سبا الأظافر",
+      stat: "05 حد أقصى للحصة",
+      statBody: "دفء بالأشعة تحت الحمراء، عطور مخصصة، وغرف تبديل مصممة بعناية.",
+    },
+    philosophy: {
+      eyebrow: "فلسفة ليكيا",
+      title: "البنية قبل الشدة.",
+      body: "نركز على بنية الحركة: دقة، إرشاد هادئ، وتناغم بين الجسم والذهن يجعل القوة تستمر.",
+    },
+    luxury: {
+      eyebrow: "فخامة عضوية",
+      title: "الهدوء هو المادة.",
+      body: "الفخامة هنا ليست مبالغة. إنها حرارة هادئة وضوء ناعم ومواد دافئة وانتقال سلس من الخارج إلى التركيز الداخلي.",
+    },
+    classHeading: {
+      eyebrow: "الحصص",
+      title: "فن الحركة",
+      body: "كل جلسة منسقة بعناية، تجمع مبادئ البيلاتس الكلاسيكية مع أسلوب رياضي معاصر.",
+    },
+    nailHeading: {
+      eyebrow: "سبا الأظافر",
+      title: "عناية بنفس الدقة.",
+      body: "يتبع سبا الأظافر لغة البيلاتس: توقيت هادئ، تقنية دقيقة، مواد دافئة، ونتيجة أنيقة بلا مبالغة.",
+      cardEyebrow: "تنسيق الأتيليه",
+      pairingNotes: [
+        "احجزي الحركة والعناية بالأظافر معا لزيارة أبطأ وأكثر اكتمالا.",
+        "ابدئي بقوة الري فورمر ثم انتقلي إلى مانيكير أو باديكير هادئ.",
+        "احجزي جلسة خاصة مع لمسة سبا للأظافر للمناسبات أو السفر أو إعادة ضبط كاملة.",
+      ],
+    },
+    timetableHeading: {
+      eyebrow: "الجدول",
+      title: "إيقاع الأسبوع",
+      body: "يفتح الحجز قبل سبعة أيام. اختاري الإيقاع الذي يناسب أسبوعك.",
+    },
+    coachesHeading: {
+      eyebrow: "المدربون",
+      title: "منسقو الحركة",
+      body: "مدربونا معماريون للحركة، لكل منهم رؤية خاصة للدقة والانسيابية والتطور الفردي.",
+    },
+    pricingHeading: {
+      eyebrow: "الأسعار",
+      title: "استثمار في الرشاقة.",
+      body: "أسعار واضحة لتجربة بيلاتس مخصصة، من البداية حتى العضويات المنتظمة.",
+      monthly: "شهري",
+      currency: "ر.س",
+    },
+    corporateHeading: {
+      eyebrow: "الشركات",
+      title: "ارفعي إنتاجية الفريق",
+      body: "برامج عافية للشركات مصممة لدعم التركيز، اللياقة طويلة المدى، وثقافة أداء متوازنة.",
+    },
+    faqHeading: {
+      eyebrow: "وضوح وحركة",
+      title: "طريقك يتضح.",
+      body: "إجابات على الأسئلة الشائعة حول ممارستك في الأتيليه.",
+    },
+    contact: {
+      eyebrow: "تواصلي مع الأتيليه",
+      title: "اقتربي من ممارستك.",
+      body: "احجزي الحصص، أديري العضوية، اكتشفي الخدمات، ونظمي زياراتك إلى ليكيا عبر التطبيق.",
+      appEyebrow: "تطبيق ليكيا",
+      appTitle: "الأتيليه في جيبك.",
+      appBody: "حملي التطبيق لحجز حصص البيلاتس، جدولة طقوس سبا الأظافر، متابعة العضوية، واستقبال تحديثات استوديو الرياض.",
+      appCta: "حملي التطبيق",
+      locationTitle: "استوديو الرياض",
+      locationBody: "أتيليه هادئ في الرياض لحصص البيلاتس وطقوس سبا الأظافر والمواعيد الخاصة.",
+      quote: "البيلاتس هو التنسيق الكامل بين الجسد والعقل والروح.",
+      quoteBy: "جوزيف بيلاتس",
+    },
+    footer: {
+      tagline: "دقة في الحركة.",
+      colOne: ["الاستوديو", "الحصص", "سبا الأظافر", "الجدول"],
+      colTwo: ["الأسعار", "الشركات", "الأسئلة"],
+      colThree: ["تواصل", "الخصوصية", "الشروط"],
+    },
+  },
+} as const;
 
 const glassCard =
   "rounded-[8px] border border-[#FFF3EA]/70 bg-[#E6CCB9]/38 shadow-[0_28px_80px_rgba(168,84,29,0.16),inset_0_1px_0_rgba(255,246,238,0.72),inset_0_-1px_0_rgba(168,84,29,0.08)] backdrop-blur-2xl";
@@ -252,12 +700,24 @@ export default function Home() {
   const progress = useMotionValue(0);
   const mainRef = useRef<HTMLElement | null>(null);
   const touchYRef = useRef<number | null>(null);
+  const [language, setLanguage] = useState<"en" | "ar">("en");
   const [hasArrived, setHasArrived] = useState(false);
+  const [pairingNoteIndex, setPairingNoteIndex] = useState(0);
   const arrivedOpacity = useTransform(progress, [0.86, 1], [0, 1]);
   const arrivedY = useTransform(progress, [0.86, 1], [20, 0]);
+  const startHintOpacity = useTransform(progress, [0, 0.035, 0.12], [1, 1, 0]);
+  const startHintY = useTransform(progress, [0, 0.12], [0, 18]);
+  const copy = siteCopy[language];
+  const isArabic = language === "ar";
+  const timetableItems = isArabic ? arabicTimetable : timetable;
+  const pairingNote = copy.nailHeading.pairingNotes[pairingNoteIndex] ?? copy.nailHeading.pairingNotes[0];
 
   const scrub = (delta: number) => {
     progress.set(clampProgress(progress.get() + delta));
+  };
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   useMotionValueEvent(progress, "change", (latest) => {
@@ -331,6 +791,8 @@ export default function Home() {
   return (
     <main
       ref={mainRef}
+      lang={language}
+      dir={isArabic ? "rtl" : "ltr"}
       className={`h-[100svh] bg-[#E6CCB9] text-[#21140E] ${
         hasArrived ? "overflow-y-auto" : "touch-none overflow-hidden"
       }`}
@@ -340,7 +802,7 @@ export default function Home() {
       onKeyDown={handleKeyDown}
       tabIndex={0}
     >
-      <h1 className="sr-only">LYKIA ATELIER Reception Entrance</h1>
+      <h1 className="sr-only">{copy.srOnlyTitle}</h1>
 
       <section className="relative h-[100svh] overflow-hidden sm:h-dvh" aria-label="Enter reception">
         <div className="flex h-screen w-full items-center justify-center">
@@ -359,22 +821,38 @@ export default function Home() {
         </div>
 
         <div className="pointer-events-none absolute bottom-5 right-5 z-30 text-right text-[0.65rem] font-medium uppercase tracking-[0.24em] text-white/45 sm:bottom-8 sm:right-8">
-          Entrance / Reception
+          {copy.entrance.label}
         </div>
+
+        <motion.div
+          style={{ opacity: startHintOpacity, y: startHintY }}
+          className="pointer-events-none absolute inset-x-0 bottom-[7svh] z-30 mx-auto flex w-fit flex-col items-center gap-3 px-6 text-center sm:bottom-8"
+        >
+          <p className="rounded-full border border-white/20 bg-black/20 px-5 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-white/75 shadow-2xl shadow-black/35 backdrop-blur-xl">
+            {copy.entrance.startHint}
+          </p>
+          <div className="h-10 w-px overflow-hidden bg-white/15">
+            <motion.div
+              animate={{ y: ["-100%", "100%"] }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              className="h-1/2 w-full bg-white/75"
+            />
+          </div>
+        </motion.div>
 
         <CopyBlock
           progress={progress}
-          eyebrow="LYKIA ATELIER"
-          title="Enter quietly"
-          body="Scroll forward through the glass doors and into a warm reception."
+          eyebrow={copy.entrance.firstEyebrow}
+          title={copy.entrance.firstTitle}
+          body={copy.entrance.firstBody}
           range={[0, 0.12, 0.32]}
         />
 
         <CopyBlock
           progress={progress}
-          eyebrow="Arrival"
-          title="The doors open to calm"
-          body="A soft-lit threshold leads from the facade into the reception space."
+          eyebrow={copy.entrance.secondEyebrow}
+          title={copy.entrance.secondTitle}
+          body={copy.entrance.secondBody}
           range={[0.28, 0.46, 0.68]}
           align="left"
         />
@@ -384,84 +862,110 @@ export default function Home() {
           className="pointer-events-none absolute inset-x-0 bottom-[9svh] z-30 mx-auto max-w-xl px-6 text-center sm:bottom-10"
         >
           <p className="text-xs font-semibold uppercase tracking-[0.34em] text-white/50">
-            Reception
+            {copy.entrance.reception}
           </p>
           <h2 className="mt-3 text-balance text-3xl font-semibold text-white/95 sm:text-5xl">
-            Welcome in.
+            {copy.entrance.welcome}
           </h2>
           <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-white/65">
-            You have arrived at the LYKIA ATELIER reception.
+            {copy.entrance.arrived}
           </p>
           <p className="mt-6 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-white/45">
-            Scroll for the atelier
+            {copy.entrance.scroll}
           </p>
         </motion.div>
       </section>
 
       <div className="bg-[#F8EFE9]">
-        <header className="sticky top-0 z-40 border-b border-[#D4B097]/45 bg-[#F8EFE9]/88 px-5 py-4 backdrop-blur-xl sm:px-8">
-          <nav className="mx-auto flex max-w-7xl items-center justify-between gap-6" aria-label="Main navigation">
-            <a href="#studio" className="text-sm font-bold uppercase tracking-[0.08em] text-[#21140E]">
-              LYKIA ATELIER
-            </a>
-            <div className="hidden items-center gap-7 lg:flex">
-              {navItems.map(([label, href]) => (
-                <a
+        <header className="sticky top-0 z-40 border-b border-[#D4B097]/45 bg-[#F8EFE9]/88 px-5 py-2.5 backdrop-blur-xl sm:px-8">
+          <nav className="mx-auto flex max-w-7xl flex-col gap-2.5" aria-label="Main navigation">
+            <div className="flex items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => scrollToSection("studio")}
+                className="text-left text-sm font-bold uppercase tracking-[0.08em] text-[#21140E]"
+              >
+                LYKIA ATELIER
+              </button>
+              <div className="flex shrink-0 items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => scrollToSection("contact")}
+                  className="rounded-full bg-[#A8541D] px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[#8F4517] sm:px-5 sm:text-xs"
+                >
+                  {copy.bookNow}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLanguage(isArabic ? "en" : "ar")}
+                  className="rounded-full border border-[#D4B097]/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#A8541D] transition hover:border-[#A8541D] hover:bg-[#A8541D]/10"
+                >
+                  {copy.languageLabel}
+                </button>
+              </div>
+            </div>
+            <div className="-mx-5 flex gap-2.5 overflow-x-auto px-5 pb-0.5 sm:-mx-8 sm:px-8 lg:mx-0 lg:justify-center lg:overflow-visible lg:px-0">
+              {copy.navItems.map(([label, href]) => (
+                <button
                   key={href}
-                  href={`#${href}`}
-                  className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[#8A6A57] transition hover:text-[#A8541D]"
+                  type="button"
+                  onClick={() => scrollToSection(href)}
+                  className="shrink-0 rounded-full border border-[#D4B097]/55 bg-[#F8EFE9]/55 px-3.5 py-1.5 text-[0.64rem] font-semibold uppercase tracking-[0.16em] text-[#8A6A57] transition hover:border-[#A8541D]/55 hover:text-[#A8541D] lg:border-0 lg:bg-transparent lg:px-1"
                 >
                   {label}
-                </a>
+                </button>
               ))}
             </div>
-            <a
-              href="#contact"
-              className="rounded-full bg-[#A8541D] px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-white transition hover:bg-[#8F4517]"
-            >
-              Book Now
-            </a>
           </nav>
         </header>
 
-        <section id="studio" className="px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
-          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <section id="studio" className="scroll-mt-32 px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
             <motion.div {...revealMotion}>
               <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#A8541D]">
-                Studio
+                {copy.studio.eyebrow}
               </p>
               <h2 className="mt-5 text-balance text-5xl font-semibold leading-[0.95] text-[#21140E] sm:text-7xl lg:text-8xl">
-                Organic Luxury Pilates
+                {copy.studio.title}
               </h2>
               <p className="mt-7 max-w-xl text-lg leading-8 text-[#6F5545]">
-                Where luxury meets movement. LYKIA is designed as a tactile, sensory escape from
-                the frantic pace of modern life.
+                {copy.studio.body}
               </p>
-              <motion.a
-                href="#classes"
-                whileHover={{ y: -3, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="mt-9 inline-flex rounded-full bg-[#A8541D] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#8F4517]"
-              >
-                Experience the Atelier
-              </motion.a>
+              <div className="mt-9 flex flex-wrap gap-4">
+                <motion.a
+                  href="#classes"
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex min-w-36 justify-center rounded-full bg-[#A8541D] px-9 py-4 text-base font-semibold text-white transition hover:bg-[#8F4517] sm:min-w-44 sm:px-11"
+                >
+                  {copy.studio.pilatesCta}
+                </motion.a>
+                <motion.a
+                  href="#nail-spa"
+                  whileHover={{ y: -3, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex min-w-36 justify-center rounded-full border border-[#A8541D]/45 bg-[#F8EFE9]/45 px-9 py-4 text-base font-semibold text-[#A8541D] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-xl transition hover:border-[#A8541D] hover:bg-[#F8EFE9]/70 sm:min-w-44 sm:px-11"
+                >
+                  {copy.studio.nailCta}
+                </motion.a>
+              </div>
             </motion.div>
-            <motion.div {...cardMotion} whileHover={liftHover} className={`${glassWarm} p-4`}>
+            <motion.div {...cardMotion} whileHover={liftHover} className={`${glassWarm} mx-auto w-full max-w-sm p-3 sm:max-w-md lg:max-w-[380px]`}>
               <motion.div
                 animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                 transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                className="aspect-[4/5] rounded-[8px] bg-[radial-gradient(circle_at_70%_20%,rgba(255,255,255,0.65),transparent_26%),linear-gradient(135deg,#D4B097,#F8EFE9_45%,#C79776)] bg-[length:180%_180%] p-8"
+                className="aspect-[4/5] rounded-[8px] bg-[radial-gradient(circle_at_70%_20%,rgba(255,255,255,0.65),transparent_26%),linear-gradient(135deg,#D4B097,#F8EFE9_45%,#C79776)] bg-[length:180%_180%] p-5 sm:p-6"
               >
                 <motion.div
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="flex h-full flex-col justify-end rounded-[8px] border border-white/35 p-6"
+                  className="flex h-full flex-col justify-end rounded-[8px] border border-white/35 p-5"
                 >
                   <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-[#A8541D]">
-                    08 max class size
+                    {copy.studio.stat}
                   </p>
-                  <p className="mt-3 max-w-sm text-2xl font-semibold text-[#21140E]">
-                    Infrared warmth, custom aromatherapy, handcrafted changing suites.
+                  <p className="mt-3 max-w-sm text-xl font-semibold text-[#21140E] sm:text-2xl">
+                    {copy.studio.statBody}
                   </p>
                 </motion.div>
               </motion.div>
@@ -472,12 +976,12 @@ export default function Home() {
         <section className="bg-[#E6CCB9] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
-              eyebrow="The LYKIA Philosophy"
-              title="Architecture before intensity."
-              body="Most studios focus on the carve. We focus on the architecture: precise movement, unhurried instruction, and the body-mind harmony that makes strength last."
+              eyebrow={copy.philosophy.eyebrow}
+              title={copy.philosophy.title}
+              body={copy.philosophy.body}
             />
             <div className="mt-10 grid gap-5 md:grid-cols-3">
-              {philosophyCards.map(([title, body]) => (
+              {copy.philosophyCards.map(([title, body]) => (
                 <InfoCard key={title} title={title} body={body} />
               ))}
             </div>
@@ -487,12 +991,12 @@ export default function Home() {
         <section className="px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
             <SectionHeading
-              eyebrow="Organic Luxury"
-              title="Calm is the material."
-              body="Luxury is not excess here. It is quiet temperature, soft light, warm surfaces, and an environment that makes the transition from outside world to inner focus feel seamless."
+              eyebrow={copy.luxury.eyebrow}
+              title={copy.luxury.title}
+              body={copy.luxury.body}
             />
             <div className="grid gap-4 sm:grid-cols-2">
-              {equipment.map((item) => (
+              {copy.equipment.map((item) => (
                 <motion.div
                   key={item}
                   {...cardMotion}
@@ -506,15 +1010,15 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="classes" className="bg-[#F3E1D3] px-6 py-20 sm:px-10 lg:px-16">
+        <section id="classes" className="scroll-mt-32 bg-[#F3E1D3] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
-              eyebrow="Classes"
-              title="The Art of Movement"
-              body="Every session is curated: classical Pilates principles balanced with contemporary athletic refinement."
+              eyebrow={copy.classHeading.eyebrow}
+              title={copy.classHeading.title}
+              body={copy.classHeading.body}
             />
             <div className="mt-12 grid gap-5 lg:grid-cols-3">
-              {classes.map((item) => (
+              {copy.classes.map((item) => (
                 <motion.article
                   key={item.title}
                   {...cardMotion}
@@ -530,37 +1034,60 @@ export default function Home() {
               ))}
             </div>
             <div className="mt-12 grid gap-4 md:grid-cols-3">
-              {etiquette.map(([title, body]) => (
+              {copy.etiquette.map(([title, body]) => (
                 <InfoCard key={title} title={title} body={body} />
               ))}
             </div>
           </div>
         </section>
 
-        <section id="nail-spa" className="px-6 py-20 sm:px-10 lg:px-16">
+        <section id="nail-spa" className="scroll-mt-32 px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
               <SectionHeading
-                eyebrow="Nail Spa"
-                title="Care rituals with the same precision."
-                body="The nail spa follows the Pilates language: quiet timing, detailed technique, warm materials, and a finished result that feels polished without excess."
+                eyebrow={copy.nailHeading.eyebrow}
+                title={copy.nailHeading.title}
+                body={copy.nailHeading.body}
               />
               <motion.div
                 {...cardMotion}
                 whileHover={liftHover}
-                className="rounded-[8px] border border-[#FFE9D8]/35 bg-[#A8541D]/82 p-7 text-white shadow-[0_28px_90px_rgba(168,84,29,0.28),inset_0_1px_0_rgba(255,233,216,0.35)] backdrop-blur-2xl"
+                className="relative overflow-hidden rounded-[8px] border border-[#A8541D]/25 bg-[#F8EFE9]/58 p-7 text-[#21140E] shadow-[0_30px_90px_rgba(168,84,29,0.16),inset_0_1px_0_rgba(255,246,238,0.72)] backdrop-blur-2xl"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/60">
-                  Atelier Pairing
+                <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#A8541D]/12 blur-2xl" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A8541D]/45 to-transparent" />
+                <p className="relative text-xs font-semibold uppercase tracking-[0.28em] text-[#A8541D]">
+                  {copy.nailHeading.cardEyebrow}
                 </p>
-                <p className="mt-5 text-2xl font-semibold leading-tight">
-                  Book movement and nail care together for a slower, more complete studio visit.
-                </p>
+                <motion.p
+                  key={pairingNote}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative mt-5 max-w-2xl text-2xl font-semibold leading-tight text-[#21140E]"
+                >
+                  {pairingNote}
+                </motion.p>
+                <div className="relative mt-7 flex gap-2">
+                  {copy.nailHeading.pairingNotes.map((note, index) => (
+                    <button
+                      key={note}
+                      type="button"
+                      aria-label={`Show pairing note ${index + 1}`}
+                      onClick={() => setPairingNoteIndex(index)}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        pairingNoteIndex === index
+                          ? "w-14 bg-[#A8541D]"
+                          : "w-10 bg-[#D4B097] hover:bg-[#C79776]"
+                      }`}
+                    />
+                  ))}
+                </div>
               </motion.div>
             </div>
 
             <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {nailSpaServices.map((item) => (
+              {copy.nailSpaServices.map((item) => (
                 <motion.article
                   key={item.title}
                   {...cardMotion}
@@ -578,37 +1105,43 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="timetable" className="px-6 py-20 sm:px-10 lg:px-16">
+        <section id="timetable" className="scroll-mt-32 px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
-              eyebrow="Timetable"
-              title="The Weekly Flow"
-              body="Booking opens seven days in advance. Choose the rhythm that meets your week."
+              eyebrow={copy.timetableHeading.eyebrow}
+              title={copy.timetableHeading.title}
+              body={copy.timetableHeading.body}
             />
             <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-7">
-              {timetable.map(([day, time, title, coach]) => (
-                <motion.article key={day} {...cardMotion} whileHover={liftHover} className={`${glassCard} p-5`}>
+              {timetableItems.map((day) => (
+                <motion.article key={day.day} {...cardMotion} whileHover={liftHover} className={`${glassCard} p-5`}>
                   <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#A8541D]">
-                    {day}
+                    {day.day}
                   </p>
-                  <p className="mt-8 text-2xl font-semibold text-[#21140E]">{time}</p>
-                  <h3 className="mt-3 text-lg font-semibold text-[#21140E]">{title}</h3>
-                  <p className="mt-2 text-sm text-[#6F5545]">{coach}</p>
+                  <div className="mt-7 space-y-5">
+                    {day.sessions.map(([time, title, coach]) => (
+                      <div key={`${day.day}-${time}-${title}`} className="border-t border-[#D4B097]/60 pt-4 first:border-t-0 first:pt-0">
+                        <p className="text-2xl font-semibold text-[#21140E]">{time}</p>
+                        <h3 className="mt-2 text-base font-semibold text-[#21140E]">{title}</h3>
+                        <p className="mt-1 text-sm text-[#6F5545]">{coach}</p>
+                      </div>
+                    ))}
+                  </div>
                 </motion.article>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="coaches" className="bg-[#E6CCB9] px-6 py-20 sm:px-10 lg:px-16">
+        <section id="coaches" className="scroll-mt-32 bg-[#E6CCB9] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
-              eyebrow="Coaches"
-              title="The Curators"
-              body="Our instructors are architects of movement, each with a distinct lens on precision, flow, and individual evolution."
+              eyebrow={copy.coachesHeading.eyebrow}
+              title={copy.coachesHeading.title}
+              body={copy.coachesHeading.body}
             />
             <div className="mt-12 grid gap-5 md:grid-cols-2">
-              {coaches.map(([name, role, style]) => (
+              {copy.coaches.map(([name, role, style]) => (
                 <motion.article key={name} {...cardMotion} whileHover={liftHover} className={`${glassWarm} p-7`}>
                   <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#A8541D]">
                     {role}
@@ -621,54 +1154,57 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="pricing" className="px-6 py-20 sm:px-10 lg:px-16">
+        <section id="pricing" className="scroll-mt-32 px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
-              eyebrow="Pricing"
-              title="Investment in Grace."
-              body="Transparent pricing for a bespoke Pilates experience, from introductory journeys to dedicated memberships."
+              eyebrow={copy.pricingHeading.eyebrow}
+              title={copy.pricingHeading.title}
+              body={copy.pricingHeading.body}
             />
             <div className="mt-12 grid gap-5 lg:grid-cols-3">
-              {pricing.map((plan, index) => (
+              {copy.pricing.map((plan, index) => (
                 <motion.article
                   key={plan.name}
                   {...cardMotion}
                   whileHover={liftHover}
-                  className={`relative overflow-hidden rounded-[8px] p-7 shadow-xl shadow-[#A8541D]/8 ${
+                  className={`relative overflow-hidden rounded-[8px] p-7 shadow-[0_30px_90px_rgba(168,84,29,0.16),inset_0_1px_0_rgba(255,246,238,0.68)] ${
                     index === 1
-                      ? "border border-[#FFE9D8]/35 bg-[#A8541D]/82 text-white backdrop-blur-2xl"
+                      ? "border border-[#A8541D]/35 bg-[#F8EFE9]/62 text-[#21140E] ring-1 ring-[#A8541D]/20 backdrop-blur-2xl"
                       : "border border-[#FFF3EA]/70 bg-[#E6CCB9]/38 text-[#21140E] backdrop-blur-2xl"
                   }`}
                 >
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/70 to-transparent" />
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A8541D]/45 to-transparent" />
+                  {index === 1 ? (
+                    <div className="pointer-events-none absolute right-5 top-5 h-16 w-16 rounded-full bg-[#A8541D]/10 blur-2xl" />
+                  ) : null}
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className={`text-xs font-semibold uppercase tracking-[0.22em] ${index === 1 ? "text-white/65" : "text-[#A8541D]"}`}>
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#A8541D]">
                         {plan.badge}
                       </p>
                       <h3 className="mt-5 text-3xl font-semibold">{plan.name}</h3>
                     </div>
                     <span className={`rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.16em] ${
-                      index === 1 ? "bg-white/16 text-white" : "bg-[#A8541D]/10 text-[#A8541D]"
+                      index === 1 ? "bg-[#A8541D] text-white" : "bg-[#A8541D]/10 text-[#A8541D]"
                     }`}>
-                      Monthly
+                      {copy.pricingHeading.monthly}
                     </span>
                   </div>
-                  <p className={`mt-5 text-sm leading-6 ${index === 1 ? "text-white/72" : "text-[#6F5545]"}`}>
+                  <p className="mt-5 text-sm leading-6 text-[#5C4435]">
                     {plan.body}
                   </p>
                   <div className="mt-8 flex items-end gap-2">
-                    <span className="text-5xl font-semibold leading-none">{plan.price}</span>
-                    <span className={`pb-1 text-sm font-semibold ${index === 1 ? "text-white/60" : "text-[#A8541D]"}`}>
-                      SR / {plan.period}
+                    <span className="text-6xl font-semibold leading-none tracking-tight">{plan.price}</span>
+                    <span className="pb-1 text-sm font-semibold text-[#A8541D]">
+                      {copy.pricingHeading.currency} / {plan.period}
                     </span>
                   </div>
-                  <div className={`mt-8 h-px ${index === 1 ? "bg-white/18" : "bg-[#D4B097]/65"}`} />
-                  <ul className={`mt-7 space-y-4 text-sm ${index === 1 ? "text-white/82" : "text-[#5C4435]"}`}>
+                  <div className="mt-8 h-px bg-[#D4B097]/65" />
+                  <ul className="mt-7 space-y-4 text-sm text-[#5C4435]">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-center gap-3">
                         <span className={`grid size-5 place-items-center rounded-full text-[0.65rem] ${
-                          index === 1 ? "bg-white/16 text-white" : "bg-[#A8541D]/12 text-[#A8541D]"
+                          index === 1 ? "bg-[#A8541D] text-white" : "bg-[#A8541D]/12 text-[#A8541D]"
                         }`}>
                           ✓
                         </span>
@@ -693,30 +1229,30 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="corporate" className="bg-[#F3E1D3] px-6 py-20 sm:px-10 lg:px-16">
+        <section id="corporate" className="scroll-mt-32 bg-[#F3E1D3] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
-              eyebrow="Corporate"
-              title="Elevate Employee Productivity"
-              body="Corporate wellness programs engineered to optimize cognitive function, physical longevity, and a culture of high-performance vitality."
+              eyebrow={copy.corporateHeading.eyebrow}
+              title={copy.corporateHeading.title}
+              body={copy.corporateHeading.body}
             />
             <div className="mt-12 grid gap-5 md:grid-cols-2">
-              {corporate.map(([title, body]) => (
+              {copy.corporate.map(([title, body]) => (
                 <InfoCard key={title} title={title} body={body} />
               ))}
             </div>
           </div>
         </section>
 
-        <section id="faq" className="px-6 py-20 sm:px-10 lg:px-16">
+        <section id="faq" className="scroll-mt-32 px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]">
             <SectionHeading
-              eyebrow="Clarity & Movement"
-              title="Your Path Unfolded."
-              body="Find answers to the common questions about your practice at our atelier."
+              eyebrow={copy.faqHeading.eyebrow}
+              title={copy.faqHeading.title}
+              body={copy.faqHeading.body}
             />
             <div className="space-y-4">
-              {faqs.map(([question, answer]) => (
+              {copy.faqs.map(([question, answer]) => (
                 <motion.article key={question} {...cardMotion} whileHover={liftHover} className={`${glassCard} p-6`}>
                   <h3 className="text-xl font-semibold text-[#21140E]">{question}</h3>
                   <p className="mt-4 text-sm leading-6 text-[#6F5545]">{answer}</p>
@@ -726,46 +1262,45 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" className="bg-[#E6CCB9] px-6 py-20 sm:px-10 lg:px-16">
+        <section id="contact" className="scroll-mt-32 bg-[#E6CCB9] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_0.9fr]">
             <div>
               <SectionHeading
-                eyebrow="Connect with our atelier"
-                title="Reach out for your practice."
-                body="Book classes, manage memberships, explore services, and keep your LYKIA visits organized from the app."
+                eyebrow={copy.contact.eyebrow}
+                title={copy.contact.title}
+                body={copy.contact.body}
               />
               <motion.div {...cardMotion} className={`${glassWarm} mt-10 p-6 sm:p-8`}>
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#A8541D]">
-                  LYKIA Mobile
+                  {copy.contact.appEyebrow}
                 </p>
                 <h3 className="mt-4 text-3xl font-semibold leading-tight text-[#21140E] sm:text-4xl">
-                  Your atelier, in your pocket.
+                  {copy.contact.appTitle}
                 </h3>
                 <p className="mt-5 max-w-xl text-sm leading-6 text-[#6F5545]">
-                  Download the app to reserve Pilates sessions, schedule nail spa rituals, view
-                  membership details, and receive studio updates from Riyadh.
+                  {copy.contact.appBody}
                 </p>
                 <motion.button
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="mt-8 rounded-full bg-[#A8541D] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#8F4517]"
                 >
-                  Download Our App
+                  {copy.contact.appCta}
                 </motion.button>
               </motion.div>
             </div>
             <div className="space-y-5 lg:pt-24">
-              <InfoCard title="Riyadh Studio" body="A calm LYKIA atelier in Riyadh for Pilates sessions, nail spa rituals, and private wellness appointments." />
+              <InfoCard title={copy.contact.locationTitle} body={copy.contact.locationBody} />
               <motion.div
                 {...cardMotion}
                 whileHover={liftHover}
                 className="rounded-[8px] border border-[#FFE9D8]/35 bg-[#A8541D]/82 p-8 text-white shadow-[0_28px_90px_rgba(168,84,29,0.28),inset_0_1px_0_rgba(255,233,216,0.35)] backdrop-blur-2xl"
               >
                 <p className="text-2xl font-semibold leading-tight">
-                  &quot;Pilates is the complete coordination of body, mind, and spirit.&quot;
+                  &quot;{copy.contact.quote}&quot;
                 </p>
                 <p className="mt-8 text-xs font-semibold uppercase tracking-[0.24em] text-white/60">
-                  Joseph Pilates
+                  {copy.contact.quoteBy}
                 </p>
               </motion.div>
             </div>
@@ -776,11 +1311,11 @@ export default function Home() {
           <div className="mx-auto grid max-w-7xl gap-8 text-sm text-[#6F5545] md:grid-cols-4">
             <div>
               <p className="font-bold uppercase tracking-[0.12em] text-[#21140E]">LYKIA ATELIER</p>
-              <p className="mt-3">Precision in motion.</p>
+              <p className="mt-3">{copy.footer.tagline}</p>
             </div>
-            <p>Studio<br />Classes<br />Nail Spa<br />Timetable</p>
-            <p>Pricing<br />Corporate<br />FAQ</p>
-            <p>Contact<br />Privacy<br />Terms</p>
+            <p>{copy.footer.colOne.map((item) => <span key={item}>{item}<br /></span>)}</p>
+            <p>{copy.footer.colTwo.map((item) => <span key={item}>{item}<br /></span>)}</p>
+            <p>{copy.footer.colThree.map((item) => <span key={item}>{item}<br /></span>)}</p>
           </div>
         </footer>
       </div>
