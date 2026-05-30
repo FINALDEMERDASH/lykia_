@@ -8,6 +8,7 @@ import {
   useMotionValueEvent,
   useTransform,
 } from "framer-motion";
+import type { CSSProperties } from "react";
 import { KeyboardEvent, TouchEvent, WheelEvent, useRef, useState } from "react";
 
 const FRAME_COUNT = 192;
@@ -298,11 +299,11 @@ const siteCopy = {
     },
     studio: {
       eyebrow: "Studio",
-      title: "Organic Luxury Pilates & Nail Spa",
+      title: "Luxurious Pilates Atelier and Nail Bar",
       body: "Where mindful movement meets refined beauty care. LYKIA is a tactile, sensory escape for precision Pilates, quiet nail rituals, and a slower return to yourself.",
       pilatesCta: "Pilates",
       nailCta: "Nail Spa",
-      stat: "05 max class size",
+      stat: "5 max capacity per class",
       statBody: "Infrared warmth, custom aromatherapy, handcrafted changing suites.",
     },
     philosophy: {
@@ -524,11 +525,11 @@ const siteCopy = {
     },
     studio: {
       eyebrow: "الاستوديو",
-      title: "بيلاتس وسبا أظافر بفخامة عضوية",
+      title: "أتيليه بيلاتس فاخر ونيل بار",
       body: "حيث تلتقي الحركة الواعية بالعناية الجمالية الراقية. ليكيا مساحة حسية هادئة للبيلاتس الدقيق وطقوس الأظافر الناعمة وعودة أبطأ إلى ذاتك.",
       pilatesCta: "بيلاتس",
       nailCta: "سبا الأظافر",
-      stat: "05 حد أقصى للحصة",
+      stat: "٥ أقصى سعة لكل حصة",
       statBody: "دفء بالأشعة تحت الحمراء، عطور مخصصة، وغرف تبديل مصممة بعناية.",
     },
     philosophy: {
@@ -607,9 +608,9 @@ const siteCopy = {
 } as const;
 
 const glassCard =
-  "rounded-[8px] border border-[#FFF3EA]/70 bg-[#E6CCB9]/38 shadow-[0_28px_80px_rgba(168,84,29,0.16),inset_0_1px_0_rgba(255,246,238,0.72),inset_0_-1px_0_rgba(168,84,29,0.08)] backdrop-blur-2xl";
+  "rounded-[8px] border border-[var(--glass-border)] bg-[var(--glass-card)] shadow-[0_28px_80px_var(--shadow),inset_0_1px_0_var(--inner-highlight),inset_0_-1px_0_rgba(168,84,29,0.08)] backdrop-blur-2xl";
 const glassWarm =
-  "rounded-[8px] border border-[#FFE9D8]/75 bg-[#D4B097]/34 shadow-[0_28px_80px_rgba(168,84,29,0.18),inset_0_1px_0_rgba(255,246,238,0.68),inset_0_-1px_0_rgba(168,84,29,0.1)] backdrop-blur-2xl";
+  "rounded-[8px] border border-[var(--warm-border)] bg-[var(--glass-warm)] shadow-[0_28px_80px_var(--shadow),inset_0_1px_0_var(--inner-highlight),inset_0_-1px_0_rgba(168,84,29,0.1)] backdrop-blur-2xl";
 const revealMotion = {
   initial: { opacity: 0, y: 34, filter: "blur(10px)" },
   whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
@@ -676,13 +677,13 @@ function SectionHeading({
 }) {
   return (
     <motion.div {...revealMotion} className={centered ? "mx-auto max-w-3xl text-center" : "max-w-3xl"}>
-      <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#A8541D]">
+      <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[var(--accent)]">
         {eyebrow}
       </p>
-      <h2 className="mt-4 text-balance text-4xl font-semibold leading-[0.98] text-[#21140E] sm:text-6xl lg:text-7xl">
+      <h2 className="mt-4 text-balance text-4xl font-semibold leading-[0.98] text-[var(--ink)] sm:text-6xl lg:text-7xl">
         {title}
       </h2>
-      {body ? <p className="mt-6 text-pretty text-base leading-7 text-[#6F5545]">{body}</p> : null}
+      {body ? <p className="mt-6 text-pretty text-base leading-7 text-[var(--muted)]">{body}</p> : null}
     </motion.div>
   );
 }
@@ -690,8 +691,8 @@ function SectionHeading({
 function InfoCard({ title, body }: { title: string; body: string }) {
   return (
     <motion.article {...cardMotion} whileHover={liftHover} className={`${glassCard} p-6`}>
-      <h3 className="text-xl font-semibold text-[#21140E]">{title}</h3>
-      <p className="mt-4 text-sm leading-6 text-[#6F5545]">{body}</p>
+      <h3 className="text-xl font-semibold text-[var(--ink)]">{title}</h3>
+      <p className="mt-4 text-sm leading-6 text-[var(--muted)]">{body}</p>
     </motion.article>
   );
 }
@@ -701,6 +702,7 @@ export default function Home() {
   const mainRef = useRef<HTMLElement | null>(null);
   const touchYRef = useRef<number | null>(null);
   const [language, setLanguage] = useState<"en" | "ar">("en");
+  const [isDark, setIsDark] = useState(false);
   const [hasArrived, setHasArrived] = useState(false);
   const [pairingNoteIndex, setPairingNoteIndex] = useState(0);
   const arrivedOpacity = useTransform(progress, [0.86, 1], [0, 1]);
@@ -711,6 +713,25 @@ export default function Home() {
   const isArabic = language === "ar";
   const timetableItems = isArabic ? arabicTimetable : timetable;
   const pairingNote = copy.nailHeading.pairingNotes[pairingNoteIndex] ?? copy.nailHeading.pairingNotes[0];
+  const themeStyle = {
+    "--page-bg": isDark ? "#2A1114" : "#E6CCB9",
+    "--surface-bg": isDark ? "#3A181C" : "#F8EFE9",
+    "--band-bg": isDark ? "#210C0F" : "#E6CCB9",
+    "--soft-bg": isDark ? "#4A2327" : "#F3E1D3",
+    "--ink": isDark ? "#FFF0EA" : "#21140E",
+    "--muted": isDark ? "rgba(255,224,214,0.76)" : "#6F5545",
+    "--soft-text": isDark ? "rgba(255,224,214,0.66)" : "#8A6A57",
+    "--accent": isDark ? "#B75B52" : "#A8541D",
+    "--accent-deep": isDark ? "#8E3C38" : "#8F4517",
+    "--rose-muted": isDark ? "#A46A66" : "#D4B097",
+    "--rose-soft": isDark ? "#5A2D31" : "#FFF3EA",
+    "--glass-card": isDark ? "rgba(122,64,67,0.36)" : "rgba(230,204,185,0.38)",
+    "--glass-warm": isDark ? "rgba(183,91,82,0.24)" : "rgba(212,176,151,0.34)",
+    "--glass-border": isDark ? "rgba(255,205,194,0.22)" : "rgba(255,243,234,0.7)",
+    "--warm-border": isDark ? "rgba(255,205,194,0.3)" : "rgba(255,233,216,0.75)",
+    "--shadow": isDark ? "rgba(18,5,7,0.44)" : "rgba(168,84,29,0.16)",
+    "--inner-highlight": isDark ? "rgba(255,226,218,0.14)" : "rgba(255,246,238,0.72)",
+  } as CSSProperties;
 
   const scrub = (delta: number) => {
     progress.set(clampProgress(progress.get() + delta));
@@ -793,7 +814,8 @@ export default function Home() {
       ref={mainRef}
       lang={language}
       dir={isArabic ? "rtl" : "ltr"}
-      className={`h-[100svh] bg-[#E6CCB9] text-[#21140E] ${
+      style={themeStyle}
+      className={`h-[100svh] bg-[var(--page-bg)] text-[var(--ink)] ${
         hasArrived ? "overflow-y-auto" : "touch-none overflow-hidden"
       }`}
       onWheel={handleWheel}
@@ -814,7 +836,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(168,84,29,0.28)_0%,rgba(168,84,29,0)_36%,rgba(168,84,29,0)_64%,rgba(168,84,29,0.3)_100%)] sm:bg-[radial-gradient(circle_at_center,rgba(168,84,29,0)_36%,rgba(168,84,29,0.28)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(109,70,65,0.26)_0%,rgba(168,84,29,0)_36%,rgba(168,84,29,0)_64%,rgba(109,70,65,0.28)_100%)] sm:bg-[radial-gradient(circle_at_center,rgba(168,84,29,0)_36%,rgba(109,70,65,0.26)_100%)]" />
 
         <div className="pointer-events-none absolute left-5 top-5 z-30 text-xs font-semibold uppercase tracking-[0.32em] text-white/85 drop-shadow-[0_2px_16px_rgba(0,0,0,0.9)] sm:left-8 sm:top-8">
           LYKIA ATELIER
@@ -876,14 +898,14 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <div className="bg-[#F8EFE9]">
-        <header className="sticky top-0 z-40 border-b border-[#D4B097]/45 bg-[#F8EFE9]/88 px-5 py-2.5 backdrop-blur-xl sm:px-8">
-          <nav className="mx-auto flex max-w-7xl flex-col gap-2.5" aria-label="Main navigation">
+      <div className="bg-[var(--surface-bg)]">
+        <header className="sticky top-0 z-40 border-b border-[var(--rose-muted)]/35 bg-[var(--surface-bg)] px-5 py-1.5 backdrop-blur-xl sm:px-8">
+          <nav className="mx-auto flex max-w-7xl flex-col gap-1.5" aria-label="Main navigation">
             <div className="flex items-center justify-between gap-3">
               <button
                 type="button"
                 onClick={() => scrollToSection("studio")}
-                className="text-left text-sm font-bold uppercase tracking-[0.08em] text-[#21140E]"
+                className="text-left text-xs font-bold uppercase tracking-[0.08em] text-[var(--ink)] sm:text-sm"
               >
                 LYKIA ATELIER
               </button>
@@ -891,26 +913,33 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => scrollToSection("contact")}
-                  className="rounded-full bg-[#A8541D] px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[#8F4517] sm:px-5 sm:text-xs"
+                  className="rounded-full bg-[var(--accent)] px-3.5 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[var(--accent-deep)] sm:px-4 sm:text-[0.7rem]"
                 >
                   {copy.bookNow}
                 </button>
                 <button
                   type="button"
                   onClick={() => setLanguage(isArabic ? "en" : "ar")}
-                  className="rounded-full border border-[#D4B097]/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#A8541D] transition hover:border-[#A8541D] hover:bg-[#A8541D]/10"
+                  className="rounded-full border border-[var(--rose-muted)]/70 px-3.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] transition hover:border-[var(--accent)] hover:bg-[var(--accent)]/10"
                 >
                   {copy.languageLabel}
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setIsDark((current) => !current)}
+                  className="rounded-full border border-[var(--rose-muted)]/70 px-3.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] transition hover:border-[var(--accent)] hover:bg-[var(--accent)]/10"
+                >
+                  {isDark ? "Light" : "Dark"}
+                </button>
               </div>
             </div>
-            <div className="-mx-5 flex gap-2.5 overflow-x-auto px-5 pb-0.5 sm:-mx-8 sm:px-8 lg:mx-0 lg:justify-center lg:overflow-visible lg:px-0">
+            <div className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-0.5 sm:-mx-8 sm:px-8 lg:mx-0 lg:justify-center lg:overflow-visible lg:px-0">
               {copy.navItems.map(([label, href]) => (
                 <button
                   key={href}
                   type="button"
                   onClick={() => scrollToSection(href)}
-                  className="shrink-0 rounded-full border border-[#D4B097]/55 bg-[#F8EFE9]/55 px-3.5 py-1.5 text-[0.64rem] font-semibold uppercase tracking-[0.16em] text-[#8A6A57] transition hover:border-[#A8541D]/55 hover:text-[#A8541D] lg:border-0 lg:bg-transparent lg:px-1"
+                  className="shrink-0 rounded-full border border-[var(--rose-muted)]/55 bg-[var(--surface-bg)] px-3 py-1 text-[0.6rem] font-semibold uppercase tracking-[0.15em] text-[var(--soft-text)] transition hover:border-[var(--accent)]/55 hover:text-[var(--accent)] lg:border-0 lg:bg-transparent lg:px-1"
                 >
                   {label}
                 </button>
@@ -922,49 +951,51 @@ export default function Home() {
         <section id="studio" className="scroll-mt-32 px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
           <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
             <motion.div {...revealMotion}>
-              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#A8541D]">
+              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[var(--accent)]">
                 {copy.studio.eyebrow}
               </p>
-              <h2 className="mt-5 text-balance text-5xl font-semibold leading-[0.95] text-[#21140E] sm:text-7xl lg:text-8xl">
+              <h2 className="mt-5 text-balance text-5xl font-semibold leading-[0.95] text-[var(--ink)] sm:text-7xl lg:text-8xl">
                 {copy.studio.title}
               </h2>
-              <p className="mt-7 max-w-xl text-lg leading-8 text-[#6F5545]">
+              <p className="mt-6 max-w-lg text-sm leading-7 text-[var(--muted)] sm:text-base">
                 {copy.studio.body}
               </p>
               <div className="mt-9 flex flex-wrap gap-4">
-                <motion.a
-                  href="#classes"
+                <motion.button
+                  type="button"
+                  onClick={() => scrollToSection("classes")}
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="inline-flex min-w-36 justify-center rounded-full bg-[#A8541D] px-9 py-4 text-base font-semibold text-white transition hover:bg-[#8F4517] sm:min-w-44 sm:px-11"
+                  className="inline-flex min-w-52 justify-center rounded-full bg-[var(--accent)] px-10 py-4 text-base font-semibold text-white transition hover:bg-[var(--accent-deep)] sm:min-w-64 sm:px-12 lg:min-w-72"
                 >
                   {copy.studio.pilatesCta}
-                </motion.a>
-                <motion.a
-                  href="#nail-spa"
+                </motion.button>
+                <motion.button
+                  type="button"
+                  onClick={() => scrollToSection("nail-spa")}
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="inline-flex min-w-36 justify-center rounded-full border border-[#A8541D]/45 bg-[#F8EFE9]/45 px-9 py-4 text-base font-semibold text-[#A8541D] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-xl transition hover:border-[#A8541D] hover:bg-[#F8EFE9]/70 sm:min-w-44 sm:px-11"
+                  className="inline-flex min-w-52 justify-center rounded-full border border-[var(--accent)]/45 bg-[var(--surface-bg)] px-10 py-4 text-base font-semibold text-[var(--accent)] shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] backdrop-blur-xl transition hover:border-[var(--accent)] hover:bg-[var(--band-bg)] sm:min-w-64 sm:px-12 lg:min-w-72"
                 >
                   {copy.studio.nailCta}
-                </motion.a>
+                </motion.button>
               </div>
             </motion.div>
             <motion.div {...cardMotion} whileHover={liftHover} className={`${glassWarm} mx-auto w-full max-w-sm p-3 sm:max-w-md lg:max-w-[380px]`}>
               <motion.div
                 animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                 transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                className="aspect-[4/5] rounded-[8px] bg-[radial-gradient(circle_at_70%_20%,rgba(255,255,255,0.65),transparent_26%),linear-gradient(135deg,#D4B097,#F8EFE9_45%,#C79776)] bg-[length:180%_180%] p-5 sm:p-6"
+                className="aspect-[4/5] rounded-[8px] bg-[radial-gradient(circle_at_70%_20%,rgba(255,255,255,0.65),transparent_26%),linear-gradient(135deg,var(--rose-muted),var(--surface-bg)_45%,var(--accent))] bg-[length:180%_180%] p-5 sm:p-6"
               >
                 <motion.div
                   animate={{ y: [0, -8, 0] }}
                   transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
                   className="flex h-full flex-col justify-end rounded-[8px] border border-white/35 p-5"
                 >
-                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-[#A8541D]">
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-[var(--accent)]">
                     {copy.studio.stat}
                   </p>
-                  <p className="mt-3 max-w-sm text-xl font-semibold text-[#21140E] sm:text-2xl">
+                  <p className="mt-3 max-w-sm text-xl font-semibold text-[var(--ink)] sm:text-2xl">
                     {copy.studio.statBody}
                   </p>
                 </motion.div>
@@ -973,7 +1004,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="bg-[#E6CCB9] px-6 py-20 sm:px-10 lg:px-16">
+        <section className="bg-[var(--band-bg)] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
               eyebrow={copy.philosophy.eyebrow}
@@ -1001,7 +1032,7 @@ export default function Home() {
                   key={item}
                   {...cardMotion}
                   whileHover={liftHover}
-                  className={`${glassCard} p-5 text-lg font-semibold text-[#21140E]`}
+                  className={`${glassCard} p-5 text-lg font-semibold text-[var(--ink)]`}
                 >
                   {item}
                 </motion.div>
@@ -1010,7 +1041,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="classes" className="scroll-mt-32 bg-[#F3E1D3] px-6 py-20 sm:px-10 lg:px-16">
+        <section id="classes" className="scroll-mt-32 bg-[var(--soft-bg)] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
               eyebrow={copy.classHeading.eyebrow}
@@ -1025,11 +1056,11 @@ export default function Home() {
                   whileHover={liftHover}
                   className={`${glassWarm} p-7`}
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#A8541D]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
                     {item.meta}
                   </p>
-                  <h3 className="mt-5 text-3xl font-semibold text-[#21140E]">{item.title}</h3>
-                  <p className="mt-5 text-sm leading-6 text-[#6F5545]">{item.body}</p>
+                  <h3 className="mt-5 text-3xl font-semibold text-[var(--ink)]">{item.title}</h3>
+                  <p className="mt-5 text-sm leading-6 text-[var(--muted)]">{item.body}</p>
                 </motion.article>
               ))}
             </div>
@@ -1052,11 +1083,11 @@ export default function Home() {
               <motion.div
                 {...cardMotion}
                 whileHover={liftHover}
-                className="relative overflow-hidden rounded-[8px] border border-[#A8541D]/25 bg-[#F8EFE9]/58 p-7 text-[#21140E] shadow-[0_30px_90px_rgba(168,84,29,0.16),inset_0_1px_0_rgba(255,246,238,0.72)] backdrop-blur-2xl"
+                className="relative overflow-hidden rounded-[8px] border border-[var(--accent)]/25 bg-[var(--surface-bg)] p-7 text-[var(--ink)] shadow-[0_30px_90px_rgba(109,70,65,0.14),inset_0_1px_0_rgba(255,246,238,0.72)] backdrop-blur-2xl"
               >
-                <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[#A8541D]/12 blur-2xl" />
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A8541D]/45 to-transparent" />
-                <p className="relative text-xs font-semibold uppercase tracking-[0.28em] text-[#A8541D]">
+                <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-[var(--accent)]/12 blur-2xl" />
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/45 to-transparent" />
+                <p className="relative text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent)]">
                   {copy.nailHeading.cardEyebrow}
                 </p>
                 <motion.p
@@ -1064,7 +1095,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative mt-5 max-w-2xl text-2xl font-semibold leading-tight text-[#21140E]"
+                  className="relative mt-5 max-w-2xl text-2xl font-semibold leading-tight text-[var(--ink)]"
                 >
                   {pairingNote}
                 </motion.p>
@@ -1077,8 +1108,8 @@ export default function Home() {
                       onClick={() => setPairingNoteIndex(index)}
                       className={`h-2 rounded-full transition-all duration-300 ${
                         pairingNoteIndex === index
-                          ? "w-14 bg-[#A8541D]"
-                          : "w-10 bg-[#D4B097] hover:bg-[#C79776]"
+                          ? "w-14 bg-[var(--accent)]"
+                          : "w-10 bg-[var(--rose-muted)] hover:bg-[var(--accent)]"
                       }`}
                     />
                   ))}
@@ -1094,11 +1125,11 @@ export default function Home() {
                   whileHover={liftHover}
                   className={`${glassWarm} p-7`}
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#A8541D]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
                     {item.meta}
                   </p>
-                  <h3 className="mt-5 text-3xl font-semibold text-[#21140E]">{item.title}</h3>
-                  <p className="mt-5 text-sm leading-6 text-[#6F5545]">{item.body}</p>
+                  <h3 className="mt-5 text-3xl font-semibold text-[var(--ink)]">{item.title}</h3>
+                  <p className="mt-5 text-sm leading-6 text-[var(--muted)]">{item.body}</p>
                 </motion.article>
               ))}
             </div>
@@ -1115,15 +1146,15 @@ export default function Home() {
             <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-7">
               {timetableItems.map((day) => (
                 <motion.article key={day.day} {...cardMotion} whileHover={liftHover} className={`${glassCard} p-5`}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#A8541D]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--accent)]">
                     {day.day}
                   </p>
                   <div className="mt-7 space-y-5">
                     {day.sessions.map(([time, title, coach]) => (
-                      <div key={`${day.day}-${time}-${title}`} className="border-t border-[#D4B097]/60 pt-4 first:border-t-0 first:pt-0">
-                        <p className="text-2xl font-semibold text-[#21140E]">{time}</p>
-                        <h3 className="mt-2 text-base font-semibold text-[#21140E]">{title}</h3>
-                        <p className="mt-1 text-sm text-[#6F5545]">{coach}</p>
+                      <div key={`${day.day}-${time}-${title}`} className="border-t border-[var(--rose-muted)]/60 pt-4 first:border-t-0 first:pt-0">
+                        <p className="text-2xl font-semibold text-[var(--ink)]">{time}</p>
+                        <h3 className="mt-2 text-base font-semibold text-[var(--ink)]">{title}</h3>
+                        <p className="mt-1 text-sm text-[var(--muted)]">{coach}</p>
                       </div>
                     ))}
                   </div>
@@ -1133,7 +1164,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="coaches" className="scroll-mt-32 bg-[#E6CCB9] px-6 py-20 sm:px-10 lg:px-16">
+        <section id="coaches" className="scroll-mt-32 bg-[var(--band-bg)] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
               eyebrow={copy.coachesHeading.eyebrow}
@@ -1143,11 +1174,11 @@ export default function Home() {
             <div className="mt-12 grid gap-5 md:grid-cols-2">
               {copy.coaches.map(([name, role, style]) => (
                 <motion.article key={name} {...cardMotion} whileHover={liftHover} className={`${glassWarm} p-7`}>
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#A8541D]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
                     {role}
                   </p>
-                  <h3 className="mt-4 text-3xl font-semibold text-[#21140E]">{name}</h3>
-                  <p className="mt-5 text-sm leading-6 text-[#6F5545]">{style}</p>
+                  <h3 className="mt-4 text-3xl font-semibold text-[var(--ink)]">{name}</h3>
+                  <p className="mt-5 text-sm leading-6 text-[var(--muted)]">{style}</p>
                 </motion.article>
               ))}
             </div>
@@ -1167,44 +1198,44 @@ export default function Home() {
                   key={plan.name}
                   {...cardMotion}
                   whileHover={liftHover}
-                  className={`relative overflow-hidden rounded-[8px] p-7 shadow-[0_30px_90px_rgba(168,84,29,0.16),inset_0_1px_0_rgba(255,246,238,0.68)] ${
+                  className={`relative overflow-hidden rounded-[8px] p-7 shadow-[0_30px_90px_rgba(109,70,65,0.14),inset_0_1px_0_rgba(255,246,238,0.68)] ${
                     index === 1
-                      ? "border border-[#A8541D]/35 bg-[#F8EFE9]/62 text-[#21140E] ring-1 ring-[#A8541D]/20 backdrop-blur-2xl"
-                      : "border border-[#FFF3EA]/70 bg-[#E6CCB9]/38 text-[#21140E] backdrop-blur-2xl"
+                      ? "border border-[var(--accent)]/35 bg-[var(--surface-bg)] text-[var(--ink)] ring-1 ring-[var(--accent)]/20 backdrop-blur-2xl"
+                      : "border border-[var(--rose-soft)]/70 bg-[var(--glass-card)] text-[var(--ink)] backdrop-blur-2xl"
                   }`}
                 >
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#A8541D]/45 to-transparent" />
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--accent)]/45 to-transparent" />
                   {index === 1 ? (
-                    <div className="pointer-events-none absolute right-5 top-5 h-16 w-16 rounded-full bg-[#A8541D]/10 blur-2xl" />
+                    <div className="pointer-events-none absolute right-5 top-5 h-16 w-16 rounded-full bg-[var(--accent)]/10 blur-2xl" />
                   ) : null}
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#A8541D]">
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
                         {plan.badge}
                       </p>
                       <h3 className="mt-5 text-3xl font-semibold">{plan.name}</h3>
                     </div>
                     <span className={`rounded-full px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.16em] ${
-                      index === 1 ? "bg-[#A8541D] text-white" : "bg-[#A8541D]/10 text-[#A8541D]"
+                      index === 1 ? "bg-[var(--accent)] text-white" : "bg-[var(--accent)]/10 text-[var(--accent)]"
                     }`}>
                       {copy.pricingHeading.monthly}
                     </span>
                   </div>
-                  <p className="mt-5 text-sm leading-6 text-[#5C4435]">
+                  <p className="mt-5 text-sm leading-6 text-[var(--muted)]">
                     {plan.body}
                   </p>
                   <div className="mt-8 flex items-end gap-2">
                     <span className="text-6xl font-semibold leading-none tracking-tight">{plan.price}</span>
-                    <span className="pb-1 text-sm font-semibold text-[#A8541D]">
+                    <span className="pb-1 text-sm font-semibold text-[var(--accent)]">
                       {copy.pricingHeading.currency} / {plan.period}
                     </span>
                   </div>
-                  <div className="mt-8 h-px bg-[#D4B097]/65" />
-                  <ul className="mt-7 space-y-4 text-sm text-[#5C4435]">
+                  <div className="mt-8 h-px bg-[var(--rose-muted)]/65" />
+                  <ul className="mt-7 space-y-4 text-sm text-[var(--muted)]">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-center gap-3">
                         <span className={`grid size-5 place-items-center rounded-full text-[0.65rem] ${
-                          index === 1 ? "bg-[#A8541D] text-white" : "bg-[#A8541D]/12 text-[#A8541D]"
+                          index === 1 ? "bg-[var(--accent)] text-white" : "bg-[var(--accent)]/12 text-[var(--accent)]"
                         }`}>
                           ✓
                         </span>
@@ -1217,8 +1248,8 @@ export default function Home() {
                     whileTap={{ scale: 0.98 }}
                     className={`mt-9 w-full rounded-full px-5 py-3 text-sm font-semibold transition ${
                       index === 1
-                        ? "bg-white text-[#A8541D] hover:bg-[#FFF3EA]"
-                        : "bg-[#A8541D] text-white hover:bg-[#8F4517]"
+                        ? "bg-white text-[var(--accent)] hover:bg-[var(--rose-soft)]"
+                        : "bg-[var(--accent)] text-white hover:bg-[var(--accent-deep)]"
                     }`}
                   >
                     {plan.cta}
@@ -1229,7 +1260,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="corporate" className="scroll-mt-32 bg-[#F3E1D3] px-6 py-20 sm:px-10 lg:px-16">
+        <section id="corporate" className="scroll-mt-32 bg-[var(--soft-bg)] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto max-w-7xl">
             <SectionHeading
               eyebrow={copy.corporateHeading.eyebrow}
@@ -1254,15 +1285,15 @@ export default function Home() {
             <div className="space-y-4">
               {copy.faqs.map(([question, answer]) => (
                 <motion.article key={question} {...cardMotion} whileHover={liftHover} className={`${glassCard} p-6`}>
-                  <h3 className="text-xl font-semibold text-[#21140E]">{question}</h3>
-                  <p className="mt-4 text-sm leading-6 text-[#6F5545]">{answer}</p>
+                  <h3 className="text-xl font-semibold text-[var(--ink)]">{question}</h3>
+                  <p className="mt-4 text-sm leading-6 text-[var(--muted)]">{answer}</p>
                 </motion.article>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="contact" className="scroll-mt-32 bg-[#E6CCB9] px-6 py-20 sm:px-10 lg:px-16">
+        <section id="contact" className="scroll-mt-32 bg-[var(--band-bg)] px-6 py-20 sm:px-10 lg:px-16">
           <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_0.9fr]">
             <div>
               <SectionHeading
@@ -1271,19 +1302,19 @@ export default function Home() {
                 body={copy.contact.body}
               />
               <motion.div {...cardMotion} className={`${glassWarm} mt-10 p-6 sm:p-8`}>
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#A8541D]">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--accent)]">
                   {copy.contact.appEyebrow}
                 </p>
-                <h3 className="mt-4 text-3xl font-semibold leading-tight text-[#21140E] sm:text-4xl">
+                <h3 className="mt-4 text-3xl font-semibold leading-tight text-[var(--ink)] sm:text-4xl">
                   {copy.contact.appTitle}
                 </h3>
-                <p className="mt-5 max-w-xl text-sm leading-6 text-[#6F5545]">
+                <p className="mt-5 max-w-xl text-sm leading-6 text-[var(--muted)]">
                   {copy.contact.appBody}
                 </p>
                 <motion.button
                   whileHover={{ y: -3, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="mt-8 rounded-full bg-[#A8541D] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#8F4517]"
+                  className="mt-8 rounded-full bg-[var(--accent)] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[var(--accent-deep)]"
                 >
                   {copy.contact.appCta}
                 </motion.button>
@@ -1294,7 +1325,7 @@ export default function Home() {
               <motion.div
                 {...cardMotion}
                 whileHover={liftHover}
-                className="rounded-[8px] border border-[#FFE9D8]/35 bg-[#A8541D]/82 p-8 text-white shadow-[0_28px_90px_rgba(168,84,29,0.28),inset_0_1px_0_rgba(255,233,216,0.35)] backdrop-blur-2xl"
+                className="rounded-[8px] border border-[var(--rose-soft)]/35 bg-[var(--accent)]/82 p-8 text-white shadow-[0_28px_90px_rgba(109,70,65,0.26),inset_0_1px_0_rgba(255,233,216,0.35)] backdrop-blur-2xl"
               >
                 <p className="text-2xl font-semibold leading-tight">
                   &quot;{copy.contact.quote}&quot;
@@ -1307,10 +1338,10 @@ export default function Home() {
           </div>
         </section>
 
-        <footer className="border-t border-[#D4B097]/55 bg-[#F8EFE9] px-6 py-10 sm:px-10 lg:px-16">
-          <div className="mx-auto grid max-w-7xl gap-8 text-sm text-[#6F5545] md:grid-cols-4">
+        <footer className="border-t border-[var(--rose-muted)]/55 bg-[var(--surface-bg)] px-6 py-10 sm:px-10 lg:px-16">
+          <div className="mx-auto grid max-w-7xl gap-8 text-sm text-[var(--muted)] md:grid-cols-4">
             <div>
-              <p className="font-bold uppercase tracking-[0.12em] text-[#21140E]">LYKIA ATELIER</p>
+              <p className="font-bold uppercase tracking-[0.12em] text-[var(--ink)]">LYKIA ATELIER</p>
               <p className="mt-3">{copy.footer.tagline}</p>
             </div>
             <p>{copy.footer.colOne.map((item) => <span key={item}>{item}<br /></span>)}</p>
@@ -1322,3 +1353,5 @@ export default function Home() {
     </main>
   );
 }
+
+
