@@ -24,3 +24,31 @@ body {
 ::selection {
   background: rgb(168 84 29 / 0.22);
 }
+
+main {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent, #a8541d) var(--surface-bg, #f8efe9);
+}
+
+main::-webkit-scrollbar {
+  width: 10px;
+}
+
+main::-webkit-scrollbar-track {
+  background: var(--surface-bg, #f8efe9);
+}
+
+main::-webkit-scrollbar-thumb {
+  min-height: 48px;
+  border: 3px solid var(--surface-bg, #f8efe9);
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    var(--rose-muted, #d4b097),
+    var(--accent, #a8541d)
+  );
+}
+
+main::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-deep, #8f4517);
+}
