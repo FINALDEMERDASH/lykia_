@@ -10,7 +10,7 @@ type ImageSequenceCanvasProps = {
   objectFit?: "cover" | "contain" | "responsive";
 };
 
-const framePath = (index: number) => `/frames/${index + 1}.png`;
+const framePath = (index: number) => `/frames-jpg/${index + 1}.jpg`;
 
 export function ImageSequenceCanvas({
   progress,
@@ -96,6 +96,7 @@ export function ImageSequenceCanvas({
   useEffect(() => {
     let isCancelled = false;
     let loaded = 0;
+    const images = Array.from<HTMLImageElement>({ length: frameCount });
 
     const loadImage = (index: number) =>
       new Promise<HTMLImageElement>((resolve, reject) => {
@@ -110,15 +111,36 @@ export function ImageSequenceCanvas({
         image.src = framePath(index);
       });
 
-    Promise.all(Array.from({ length: frameCount }, (_, index) => loadImage(index)))
-      .then((images) => {
+    const initialFrame = Math.round(progress.get() * (frameCount - 1));
+    const preloadOrder = Array.from({ length: frameCount }, (_, index) => index).sort(
+      (a, b) => Math.abs(a - initialFrame) - Math.abs(b - initialFrame),
+    );
+
+    loadImage(initialFrame)
+      .then((image) => {
         if (isCancelled) return;
+        images[initialFrame] = image;
         imagesRef.current = images;
         setIsLoaded(true);
-        requestDraw(Math.round(progress.get() * (frameCount - 1)));
+        requestDraw(initialFrame);
+
+        preloadOrder
+          .filter((index) => index !== initialFrame)
+          .forEach((index) => {
+            loadImage(index)
+              .then((nextImage) => {
+                if (isCancelled) return;
+                images[index] = nextImage;
+                imagesRef.current = images;
+                if (currentFrameRef.current === index) requestDraw(index);
+              })
+              .catch((error) => {
+                console.error(`Failed to preload reception frame ${index + 1}`, error);
+              });
+          });
       })
       .catch((error) => {
-        console.error("Failed to preload reception sequence", error);
+        console.error("Failed to load initial reception frame", error);
       });
 
     return () => {
