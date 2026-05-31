@@ -913,21 +913,22 @@ export default function Home() {
           className="sticky top-0 z-40 border-b border-[var(--rose-muted)]/35 bg-[var(--surface-bg)] px-5 py-1.5 backdrop-blur-xl sm:px-8"
         >
           <nav className="mx-auto flex max-w-7xl flex-col gap-1.5" aria-label="Main navigation">
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={() => scrollToSection("studio")}
-                className="text-left text-xs font-bold uppercase tracking-[0.08em] text-[var(--ink)] sm:text-sm"
+                className="max-w-[96px] truncate text-left text-xs font-bold uppercase tracking-[0.08em] text-[var(--ink)] sm:max-w-none sm:text-sm"
               >
                 LYKIA ATELIER
               </button>
-              <div className="flex shrink-0 items-center gap-2">
+              <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   onClick={() => scrollToSection("contact")}
-                  className="rounded-full bg-[var(--accent)] px-3.5 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[var(--accent-deep)] sm:px-4 sm:text-[0.7rem]"
+                  className="rounded-full bg-[var(--accent)] px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[var(--accent-deep)] sm:px-4 sm:text-[0.7rem]"
                 >
-                  {copy.bookNow}
+                  <span className="sm:hidden">{isArabic ? "تحميل" : "Download"}</span>
+                  <span className="hidden sm:inline">{copy.bookNow}</span>
                 </button>
                 <button
                   type="button"
@@ -953,12 +954,12 @@ export default function Home() {
                   aria-label="Toggle dark theme"
                   aria-pressed={isDark}
                   onClick={() => setIsDark((current) => !current)}
-                  className="relative flex h-7 w-[88px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] px-1 text-[0.55rem] font-bold uppercase tracking-[0.08em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)]"
+                  className="relative flex h-7 w-[78px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] px-1 text-[0.48rem] font-bold uppercase tracking-[0.05em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)] sm:w-[88px] sm:text-[0.55rem] sm:tracking-[0.08em]"
                 >
                   <motion.span
                     layout
                     transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    className={`absolute top-1 h-5 w-10 rounded-full bg-[var(--accent)] shadow-sm ${
+                    className={`absolute top-1 h-5 w-[34px] rounded-full bg-[var(--accent)] shadow-sm sm:w-10 ${
                       isDark ? "right-1" : "left-1"
                     }`}
                   />
