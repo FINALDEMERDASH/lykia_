@@ -954,7 +954,7 @@ export default function Home() {
                   aria-label="Toggle dark theme"
                   aria-pressed={isDark}
                   onClick={() => setIsDark((current) => !current)}
-                  className="flex h-7 w-[82px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] p-1 text-[0.48rem] font-bold uppercase tracking-[0.04em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)] sm:w-[88px] sm:text-[0.55rem] sm:tracking-[0.08em]"
+                  className="flex h-7 w-[92px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] p-1 text-[0.52rem] font-bold uppercase tracking-[0.03em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)] sm:w-[88px] sm:text-[0.55rem] sm:tracking-[0.08em]"
                 >
                   <span className={`grid h-5 flex-1 place-items-center rounded-full transition ${
                     !isDark ? "bg-[var(--accent)] text-white" : ""
