@@ -10,7 +10,7 @@ type ImageSequenceCanvasProps = {
   objectFit?: "cover" | "contain" | "responsive";
 };
 
-const framePath = (index: number) => `/frames-jpg/${index + 1}.jpg`;
+const framePath = (index: number) => `/frames/${index + 1}.webp`;
 
 export function ImageSequenceCanvas({
   progress,
@@ -124,20 +124,30 @@ export function ImageSequenceCanvas({
         setIsLoaded(true);
         requestDraw(initialFrame);
 
-        preloadOrder
-          .filter((index) => index !== initialFrame)
-          .forEach((index) => {
-            loadImage(index)
-              .then((nextImage) => {
+        const remainingFrames = preloadOrder.filter((index) => index !== initialFrame);
+        const loadNextFrames = async () => {
+          const queue = [...remainingFrames];
+          const workers = Array.from({ length: 6 }, async () => {
+            while (queue.length > 0 && !isCancelled) {
+              const index = queue.shift();
+              if (index === undefined) return;
+
+              try {
+                const nextImage = await loadImage(index);
                 if (isCancelled) return;
                 images[index] = nextImage;
                 imagesRef.current = images;
                 if (currentFrameRef.current === index) requestDraw(index);
-              })
-              .catch((error) => {
+              } catch (error) {
                 console.error(`Failed to preload reception frame ${index + 1}`, error);
-              });
+              }
+            }
           });
+
+          await Promise.all(workers);
+        };
+
+        void loadNextFrames();
       })
       .catch((error) => {
         console.error("Failed to load initial reception frame", error);

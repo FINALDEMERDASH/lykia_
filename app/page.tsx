@@ -954,17 +954,18 @@ export default function Home() {
                   aria-label="Toggle dark theme"
                   aria-pressed={isDark}
                   onClick={() => setIsDark((current) => !current)}
-                  className="relative flex h-7 w-[78px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] px-1 text-[0.48rem] font-bold uppercase tracking-[0.05em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)] sm:w-[88px] sm:text-[0.55rem] sm:tracking-[0.08em]"
+                  className="flex h-7 w-[82px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] p-1 text-[0.48rem] font-bold uppercase tracking-[0.04em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)] sm:w-[88px] sm:text-[0.55rem] sm:tracking-[0.08em]"
                 >
-                  <motion.span
-                    layout
-                    transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    className={`absolute top-1 h-5 w-[34px] rounded-full bg-[var(--accent)] shadow-sm sm:w-10 ${
-                      isDark ? "right-1" : "left-1"
-                    }`}
-                  />
-                  <span className={`relative z-10 grid flex-1 place-items-center ${!isDark ? "text-white" : ""}`}>Light</span>
-                  <span className={`relative z-10 grid flex-1 place-items-center ${isDark ? "text-white" : ""}`}>Dark</span>
+                  <span className={`grid h-5 flex-1 place-items-center rounded-full transition ${
+                    !isDark ? "bg-[var(--accent)] text-white" : ""
+                  }`}>
+                    Light
+                  </span>
+                  <span className={`grid h-5 flex-1 place-items-center rounded-full transition ${
+                    isDark ? "bg-[var(--accent)] text-white" : ""
+                  }`}>
+                    Dark
+                  </span>
                 </button>
               </div>
             </div>
