@@ -913,21 +913,21 @@ export default function Home() {
           className="sticky top-0 z-40 border-b border-[var(--rose-muted)]/35 bg-[var(--surface-bg)] px-5 py-1.5 backdrop-blur-xl sm:px-8"
         >
           <nav className="mx-auto flex max-w-7xl flex-col gap-1.5" aria-label="Main navigation">
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex min-w-0 items-center justify-between gap-1">
               <button
                 type="button"
                 onClick={() => scrollToSection("studio")}
-                className="max-w-[96px] truncate text-left text-xs font-bold uppercase tracking-[0.08em] text-[var(--ink)] sm:max-w-none sm:text-sm"
+                className="max-w-[74px] truncate text-left text-[0.68rem] font-bold uppercase tracking-[0.06em] text-[var(--ink)] sm:max-w-none sm:text-sm sm:tracking-[0.08em]"
               >
                 LYKIA ATELIER
               </button>
-              <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+              <div className="flex shrink-0 items-center gap-1 sm:gap-2">
                 <button
                   type="button"
                   onClick={() => scrollToSection("contact")}
-                  className="rounded-full bg-[var(--accent)] px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-[var(--accent-deep)] sm:px-4 sm:text-[0.7rem]"
+                  className="rounded-full bg-[var(--accent)] px-2.5 py-1.5 text-[0.58rem] font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[var(--accent-deep)] sm:px-4 sm:text-[0.7rem] sm:tracking-[0.12em]"
                 >
-                  <span className="sm:hidden">{isArabic ? "تحميل" : "Download"}</span>
+                  <span className="sm:hidden">{isArabic ? "تطبيق" : "App"}</span>
                   <span className="hidden sm:inline">{copy.bookNow}</span>
                 </button>
                 <button
@@ -936,7 +936,7 @@ export default function Home() {
                   aria-pressed={isArabic}
                   onClick={() => setLanguage(isArabic ? "en" : "ar")}
                   dir="ltr"
-                  className="flex h-7 w-[76px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] p-1 text-[0.58rem] font-bold uppercase tracking-[0.08em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)]"
+                  className="flex h-7 w-[68px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] p-1 text-[0.54rem] font-bold uppercase tracking-[0.06em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)] sm:w-[76px] sm:text-[0.58rem] sm:tracking-[0.08em]"
                 >
                   <span className={`grid h-5 flex-1 place-items-center rounded-full transition ${
                     !isArabic ? "bg-[var(--accent)] text-white" : ""
