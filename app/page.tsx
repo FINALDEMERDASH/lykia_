@@ -9,7 +9,7 @@ import {
   useTransform,
 } from "framer-motion";
 import type { CSSProperties } from "react";
-import { KeyboardEvent, TouchEvent, WheelEvent, useRef, useState } from "react";
+import { KeyboardEvent, TouchEvent, WheelEvent, useEffect, useRef, useState } from "react";
 
 const FRAME_COUNT = 192;
 const SCROLL_SENSITIVITY = 0.00042;
@@ -382,11 +382,11 @@ const siteCopy = {
   ar: {
     navItems: [
       ["الاستوديو", "studio"],
-      ["الحصص", "classes"],
-      ["سبا الأظافر", "nail-spa"],
-      ["الأسعار", "pricing"],
+      ["حصص البيلاتس", "classes"],
+      ["نيل سبا", "nail-spa"],
+      ["العضويات", "pricing"],
       ["الجدول", "timetable"],
-      ["المدربون", "coaches"],
+      ["المدربات", "coaches"],
       ["الشركات", "corporate"],
       ["الأسئلة", "faq"],
     ],
@@ -398,36 +398,36 @@ const siteCopy = {
     equipment: ["أجهزة ري فورمر Allegro 2", "كراسي وندا", "جدار كاديلاك", "أدوات مخصصة"],
     classes: [
       {
-        title: "ري فورمر",
-        meta: "50 دقيقة / متوسط إلى عال",
-        body: "تدريب مقاومة ديناميكي للقوام والقوة والمرونة والتحكم الرياضي الراقي.",
+        title: "ريفورمر بيلاتس",
+        meta: "50 دقيقة / مستوى متوسط إلى قوي",
+        body: "حصة مقاومة على جهاز الريفورمر لتحسين القوام، قوة الكور، المرونة، والتحكم العضلي.",
       },
       {
-        title: "مات كلاسيك",
-        meta: "45 دقيقة / تأسيسي",
-        body: "تمرين دقيق على الحصيرة مستوحى من منهج جوزيف بيلاتس الأصلي والتنفس والانتقالات النظيفة.",
+        title: "مات بيلاتس كلاسيك",
+        meta: "45 دقيقة / مستوى تأسيسي",
+        body: "تمارين حصيرة كلاسيكية تركّز على التنفس، المحاذاة، الثبات، وانتقالات بيلاتس نظيفة.",
       },
       {
-        title: "جلسات خاصة",
-        meta: "60 أو 90 دقيقة / مخصصة",
-        body: "برنامج فردي باستخدام الري فورمر والكاديلاك والوندا لتحقيق أهدافك الشخصية.",
+        title: "جلسات بيلاتس خاصة",
+        meta: "60 أو 90 دقيقة / تدريب شخصي",
+        body: "برنامج فردي على الريفورمر والكاديلاك والوندا حسب هدفك، مستوى لياقتك، واحتياج جسمك.",
       },
     ],
     nailSpaServices: [
       {
         title: "مانيكير سيغنتشر",
-        meta: "45 دقيقة / عناية",
-        body: "تنظيف الجلد المحيط، تشكيل الأظافر، ترطيب اليدين، ولمسة نهائية أنيقة من لوحة ألوان الأتيليه.",
+        meta: "45 دقيقة / عناية باليدين",
+        body: "تحضير الأظافر، تنظيف الكيوتكل، برد وتشكيل، ترطيب، ولمسة لون نهائية من لوحة النيل بار.",
       },
       {
         title: "جل بوليش",
         meta: "60 دقيقة / ثبات طويل",
-        body: "تطبيق جل لامع مع تحضير دقيق وبنية متوازنة واختيار ألوان راق.",
+        body: "تطبيق جل بوليش لامع مع تحضير دقيق، طبقات متوازنة، واختيار لون مناسب لطول الأظافر وشكلها.",
       },
       {
-        title: "سبا باديكير",
-        meta: "60 دقيقة / استرخاء",
-        body: "نقع للقدمين، تشكيل، تقشير، تدليك، وتلميع يمنحك إعادة ضبط ناعمة بعد الحركة.",
+        title: "باديكير سبا",
+        meta: "60 دقيقة / عناية بالقدمين",
+        body: "نقع للقدمين، تنظيف وتشكيل الأظافر، تقشير، مساج خفيف، ولمسة بوليش نهائية.",
       },
       {
         title: "تقوية الأظافر",
@@ -435,9 +435,9 @@ const siteCopy = {
         body: "علاج مركز للأظافر الضعيفة باستخدام تحضير لطيف وطبقات تقوية.",
       },
       {
-        title: "فن أظافر بسيط",
-        meta: "إضافة / حسب الطلب",
-        body: "تفاصيل رفيعة ولمسات هادئة وتصاميم أنيقة لا تبدو صاخبة.",
+        title: "نيل آرت بسيط",
+        meta: "إضافة / حسب التصميم",
+        body: "خطوط رفيعة، تفاصيل ناعمة، وفرنش أو لمسات كروم هادئة حسب شكل الأظافر.",
       },
       {
         title: "باقة العروس",
@@ -524,13 +524,13 @@ const siteCopy = {
       startHint: "مرري للدخول",
     },
     studio: {
-      eyebrow: "الاستوديو",
+      eyebrow: "استوديو بيلاتس",
       title: "أتيليه بيلاتس فاخر ونيل بار",
-      body: "حيث تلتقي الحركة الواعية بالعناية الجمالية الراقية. ليكيا مساحة حسية هادئة للبيلاتس الدقيق وطقوس الأظافر الناعمة وعودة أبطأ إلى ذاتك.",
-      pilatesCta: "بيلاتس",
-      nailCta: "سبا الأظافر",
-      stat: "٥ أقصى سعة لكل حصة",
-      statBody: "دفء بالأشعة تحت الحمراء، عطور مخصصة، وغرف تبديل مصممة بعناية.",
+      body: "استوديو بيلاتس بوتيك يجمع حصص الريفورمر، المات، والجلسات الخاصة مع نيل بار هادئ للعناية بالمانيكير والباديكير.",
+      pilatesCta: "حصص البيلاتس",
+      nailCta: "نيل سبا",
+      stat: "سعة الحصة ٥ أشخاص كحد أقصى",
+      statBody: "ريفورمر، مات بيلاتس، مساحة تجهيز هادئة، وتجربة تدريب مركزة.",
     },
     philosophy: {
       eyebrow: "فلسفة ليكيا",
@@ -543,19 +543,19 @@ const siteCopy = {
       body: "الفخامة هنا ليست مبالغة. إنها حرارة هادئة وضوء ناعم ومواد دافئة وانتقال سلس من الخارج إلى التركيز الداخلي.",
     },
     classHeading: {
-      eyebrow: "الحصص",
-      title: "فن الحركة",
-      body: "كل جلسة منسقة بعناية، تجمع مبادئ البيلاتس الكلاسيكية مع أسلوب رياضي معاصر.",
+      eyebrow: "حصص البيلاتس",
+      title: "ريفورمر، مات، وجلسات خاصة",
+      body: "اختاري الحصة المناسبة لمستواك: تدريب ريفورمر، مات بيلاتس، أو جلسة خاصة لرفع اللياقة والتحكم والقوة.",
     },
     nailHeading: {
-      eyebrow: "سبا الأظافر",
-      title: "عناية بنفس الدقة.",
-      body: "يتبع سبا الأظافر لغة البيلاتس: توقيت هادئ، تقنية دقيقة، مواد دافئة، ونتيجة أنيقة بلا مبالغة.",
-      cardEyebrow: "تنسيق الأتيليه",
+      eyebrow: "نيل سبا",
+      title: "مانيكير وباديكير بلمسة احترافية.",
+      body: "نيل سبا يقدم تحضير الأظافر، جل بوليش، باديكير سبا، تقوية الأظافر، ونيل آرت بسيط بنتيجة أنيقة وطويلة الثبات.",
+      cardEyebrow: "باقة بيلاتس + نيل سبا",
       pairingNotes: [
-        "احجزي الحركة والعناية بالأظافر معا لزيارة أبطأ وأكثر اكتمالا.",
-        "ابدئي بقوة الري فورمر ثم انتقلي إلى مانيكير أو باديكير هادئ.",
-        "احجزي جلسة خاصة مع لمسة سبا للأظافر للمناسبات أو السفر أو إعادة ضبط كاملة.",
+        "ابدئي بحصة ريفورمر، ثم اختتمي الزيارة بمانيكير جل هادئ.",
+        "احجزي جلسة بيلاتس خاصة مع باديكير سبا ليوم عناية كامل.",
+        "اختاري باقة حركة وعناية: تدريب للجسم ولمسة نهائية للأظافر.",
       ],
     },
     timetableHeading: {
@@ -600,7 +600,7 @@ const siteCopy = {
     },
     footer: {
       tagline: "دقة في الحركة.",
-      colOne: ["الاستوديو", "الحصص", "سبا الأظافر", "الجدول"],
+      colOne: ["الاستوديو", "حصص البيلاتس", "نيل سبا", "الجدول"],
       colTwo: ["الأسعار", "الشركات", "الأسئلة"],
       colThree: ["تواصل", "الخصوصية", "الشروط"],
     },
@@ -713,6 +713,7 @@ export default function Home() {
   const isArabic = language === "ar";
   const timetableItems = isArabic ? arabicTimetable : timetable;
   const pairingNote = copy.nailHeading.pairingNotes[pairingNoteIndex] ?? copy.nailHeading.pairingNotes[0];
+  const pairingNotesCount = copy.nailHeading.pairingNotes.length;
   const themeStyle = {
     "--page-bg": isDark ? "#2A1114" : "#E6CCB9",
     "--surface-bg": isDark ? "#3A181C" : "#F8EFE9",
@@ -740,6 +741,14 @@ export default function Home() {
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setPairingNoteIndex((current) => (current + 1) % pairingNotesCount);
+    }, 4200);
+
+    return () => window.clearInterval(interval);
+  }, [pairingNotesCount]);
 
   useMotionValueEvent(progress, "change", (latest) => {
     setHasArrived(latest >= 0.995);
@@ -899,7 +908,10 @@ export default function Home() {
       </section>
 
       <div className="bg-[var(--surface-bg)]">
-        <header className="sticky top-0 z-40 border-b border-[var(--rose-muted)]/35 bg-[var(--surface-bg)] px-5 py-1.5 backdrop-blur-xl sm:px-8">
+        <header
+          dir="ltr"
+          className="sticky top-0 z-40 border-b border-[var(--rose-muted)]/35 bg-[var(--surface-bg)] px-5 py-1.5 backdrop-blur-xl sm:px-8"
+        >
           <nav className="mx-auto flex max-w-7xl flex-col gap-1.5" aria-label="Main navigation">
             <div className="flex items-center justify-between gap-3">
               <button
@@ -919,17 +931,39 @@ export default function Home() {
                 </button>
                 <button
                   type="button"
+                  aria-label="Toggle language"
+                  aria-pressed={isArabic}
                   onClick={() => setLanguage(isArabic ? "en" : "ar")}
-                  className="rounded-full border border-[var(--rose-muted)]/70 px-3.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] transition hover:border-[var(--accent)] hover:bg-[var(--accent)]/10"
+                  dir="ltr"
+                  className="flex h-7 w-[76px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] p-1 text-[0.58rem] font-bold uppercase tracking-[0.08em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)]"
                 >
-                  {copy.languageLabel}
+                  <span className={`grid h-5 flex-1 place-items-center rounded-full transition ${
+                    !isArabic ? "bg-[var(--accent)] text-white" : ""
+                  }`}>
+                    EN
+                  </span>
+                  <span className={`grid h-5 flex-1 place-items-center rounded-full transition ${
+                    isArabic ? "bg-[var(--accent)] text-white" : ""
+                  }`}>
+                    AR
+                  </span>
                 </button>
                 <button
                   type="button"
+                  aria-label="Toggle dark theme"
+                  aria-pressed={isDark}
                   onClick={() => setIsDark((current) => !current)}
-                  className="rounded-full border border-[var(--rose-muted)]/70 px-3.5 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-[var(--accent)] transition hover:border-[var(--accent)] hover:bg-[var(--accent)]/10"
+                  className="relative flex h-7 w-[88px] items-center rounded-full border border-[var(--rose-muted)]/70 bg-[var(--glass-card)] px-1 text-[0.55rem] font-bold uppercase tracking-[0.08em] text-[var(--soft-text)] shadow-[inset_0_1px_0_var(--inner-highlight)] transition hover:border-[var(--accent)]"
                 >
-                  {isDark ? "Light" : "Dark"}
+                  <motion.span
+                    layout
+                    transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                    className={`absolute top-1 h-5 w-10 rounded-full bg-[var(--accent)] shadow-sm ${
+                      isDark ? "right-1" : "left-1"
+                    }`}
+                  />
+                  <span className={`relative z-10 grid flex-1 place-items-center ${!isDark ? "text-white" : ""}`}>Light</span>
+                  <span className={`relative z-10 grid flex-1 place-items-center ${isDark ? "text-white" : ""}`}>Dark</span>
                 </button>
               </div>
             </div>
