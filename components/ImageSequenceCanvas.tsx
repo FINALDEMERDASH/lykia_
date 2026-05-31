@@ -10,7 +10,8 @@ type ImageSequenceCanvasProps = {
   objectFit?: "cover" | "contain" | "responsive";
 };
 
-const framePath = (index: number) => `/frames/${index + 1}.webp`;
+const framePath = (index: number, extension: "webp" | "png" = "webp") =>
+  `/frames/${index + 1}.${extension}`;
 
 export function ImageSequenceCanvas({
   progress,
@@ -107,7 +108,14 @@ export function ImageSequenceCanvas({
           if (!isCancelled) setLoadedCount(loaded);
           resolve(image);
         };
-        image.onerror = reject;
+        image.onerror = () => {
+          if (image.src.endsWith(".webp")) {
+            image.src = framePath(index, "png");
+            return;
+          }
+
+          reject(new Error(`Failed to load frame ${index + 1}`));
+        };
         image.src = framePath(index);
       });
 
